@@ -1,27 +1,65 @@
-#container {
-  text-align: center;
-
-  position: absolute;
-  left: 0;
-  right: 0;
-  top: 50%;
-  transform: translateY(-50%);
+/* Personalización del Toolbar */
+ion-toolbar {
+  --background: #f8f9fa;
+  --color: #333;
 }
 
-#container strong {
-  font-size: 20px;
-  line-height: 26px;
+
+/* Estilo del Segmento */
+ion-segment {
+  --background: #dadada;
+  --indicator-color: #3880ff;
+  --indicator-height: 3px;
 }
 
-#container p {
-  font-size: 16px;
-  line-height: 22px;
-
-  color: #8c8c8c;
-
-  margin: 0;
+/* Personalización del Menú */
+ion-menu.compact-menu {
+  --max-width: 200px; /* Ancho máximo del menú desplegado */
+  --min-width: 70px;  /* Ancho mínimo del menú cerrado */
+  transition: all 0.3s ease; /* Transición para suavizar el cambio */
 }
 
-#container a {
-  text-decoration: none;
+
+ion-menu.compact-menu ion-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 10px;
 }
+
+/* Listado de ítems del menú */
+.compact-menu ion-item {
+  width: 100%;
+  --min-height: 60px;
+  --background: #3c7fc7;
+  color: #fff;
+}
+
+.compact-menu ion-item:hover {
+  --background: #2966a5; /* Efecto hover */
+}
+
+/* Íconos del menú */
+.compact-menu ion-icon {
+  margin-right: 10px;
+  color: #ffffff;
+}
+
+/* Contenedor del logo */
+.logo-container {
+  padding: 10px;
+}
+
+.logo-container img {
+  max-width: 60%;
+  height: auto;
+  max-height: 40px;
+}
+
+/* Split Pane sin bordes */
+ion-split-pane {
+  --ion-border-color: transparent;
+}
+
+
+

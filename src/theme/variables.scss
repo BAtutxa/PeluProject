@@ -1,2 +1,15 @@
 // For information on how to create your own theme, please see:
 // http://ionicframework.com/docs/theming/
+/* Variables Globales */
+:root {
+    --ion-background-color: #ffffff;
+    --ion-text-color: #000000;
+  }
+  
+  body.dark {
+    --ion-background-color: #121212;
+    --ion-text-color: #ffffff;
+    --ion-toolbar-background: #1e1e1e;
+    --ion-toolbar-text-color: #ffffff;
+  }
+  
