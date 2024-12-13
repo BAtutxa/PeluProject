@@ -13,7 +13,7 @@ import { SharedModule } from '../../shared/shared.module';
     FormsModule,
     IonicModule,
     TableroPageRoutingModule,
-    SharedModule
+    SharedModule,
   ],
   declarations: [TableroPage]
 })

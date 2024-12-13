@@ -1,71 +1,20 @@
-/* Personalización del Toolbar */
-ion-toolbar {
-  --background: #f8f9fa;
-  --color: #333;
+ion-content {
+  --background: #f8f9fa ;
 }
-
-
-/* Estilo del Segmento */
-ion-segment {
-  --background: #dadada;
-  --indicator-color: #3880ff;
-  --indicator-height: 3px;
+.botonEliminar{
+  padding: 5px 10px;
+  background-color: #bf1102;
+  color: white;
+  border: none;
+  border-radius: 5px;
 }
-
-/* Personalización del Menú */
-ion-menu.compact-menu {
-  --max-width: 200px; /* Ancho máximo del menú desplegado */
-  --min-width: 70px;  /* Ancho mínimo del menú cerrado */
-  transition: all 0.3s ease; /* Transición para suavizar el cambio */
-}
-
-
-ion-menu.compact-menu ion-content {
+.barracontrol{
+  background-color: #535b7f;
   display: flex;
-  flex-direction: column;
   align-items: center;
   padding: 10px;
-}
+  justify-content: center
 
-/* Listado de ítems del menú */
-.compact-menu ion-item {
-  width: 100%;
-  --min-height: 60px;
-  --background: #3c7fc7;
-  color: #fff;
-}
-
-.compact-menu ion-item:hover {
-  --background: #2966a5; /* Efecto hover */
-}
-
-/* Íconos del menú */
-.compact-menu ion-icon {
-  margin-right: 10px;
-  color: #ffffff;
-}
-
-/* Contenedor del logo */
-.logo-container {
-  padding: 10px;
-}
-
-.logo-container img {
-  max-width: 60%;
-  height: auto;
-  max-height: 40px;
-}
-
-/* Split Pane sin bordes */
-ion-split-pane {
-  --ion-border-color: transparent;
-}
-
-ion-avatar{
-  padding: 10px;
-}
-ion-content {
-  --background: #f8f9fa !important; /* Fondo del contenido */
 }
 
 

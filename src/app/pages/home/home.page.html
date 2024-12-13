@@ -1,14 +1,10 @@
 <ion-app>
   <ion-header>
     <app-barra-navegacion></app-barra-navegacion>
-  </ion-header>
-
-  <ion-content>
     <app-nav-bar></app-nav-bar>
-
-      <div style="background: #535b7f; display: flex; align-items: center; padding: 10px; justify-content: center;">
-  
-        <!-- Selección de categoría (Grupos) - Deshabilitado -->
+  </ion-header>
+  <ion-content>
+      <div class="barracontrol">
         <select style="margin-right: 10px; padding: 5px;" disabled>
           <option>Grupo 1</option>
           <option>Grupo 2</option>
@@ -17,16 +13,16 @@
           <option>Grupo 5</option>
         </select>
   
-        <div style=" display: flex; align-items: center; margin-right: 10px;">
+        <div style="margin-right: 10px;">
           <select style="border-radius: 5px; margin-right: 10px; padding: 5px;">
             <option> Asier Bañuelos </option>
             <option>Beñat Herrera</option>
             <option>Asier Nicolas</option>
           </select>
-          <button style="padding: 5px 10px; background-color: #FFA500; color: white; border: none; border-radius: 5px;">Editar</button>
+          <button class="botonEliminar">Eliminar</button>
         </div>
   
-        <div style="display: flex; align-items: center; margin-right: 10px;">
+        <div style="margin-right: 10px;">
           <button style="border: none; background: none; color:white;">&#9664;</button>
           <span style=" color:white; margin: 0 5px;">Hoy</span>
           <button style="border: none; background: none; color:white;">&#9654;</button>
