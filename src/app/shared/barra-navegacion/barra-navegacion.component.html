@@ -1,0 +1,24 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button autoHide="false" [hidden]="!isMobile"></ion-menu-button>   <!-- Aqui activo el menu hamburgesa para la version movil -->
+    </ion-buttons>
+    <div class="logo-container">
+      <img src="assets/fotos/Logo-horizontal-FP_Santurtzi_LH_small.png" alt="Logo FP Santurtzi LH" />
+    </div>
+    <ion-buttons slot="end">
+      <ion-button>
+        <ion-icon slot="icon-only" name="search"></ion-icon>
+      </ion-button>
+      <ion-button>
+        <ion-icon slot="icon-only" name="notifications-outline"></ion-icon>
+      </ion-button>
+      <ion-avatar slot="end">
+        <img src="assets/fotos/descarga-_4_.png" alt="User Avatar">
+      </ion-avatar>
+      <ion-button (click)="goToLogin()">
+        <ion-icon slot="icon-only" name="log-in-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>

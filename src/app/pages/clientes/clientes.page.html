@@ -1,0 +1,106 @@
+<ion-header>
+  <app-barra-navegacion></app-barra-navegacion>
+</ion-header>
+
+<ion-content>
+  <app-nav-bar></app-nav-bar>
+  
+  <div class="center-container">
+    <ion-grid>
+      <ion-row>
+        <!-- Columna de Datos -->
+        <ion-col size-md="7" size="12"> <!-- 7 columnas en pantallas medianas, 12 en pequeñas -->
+          <ion-card>
+            <ion-card-header>
+              <ion-card-title>Datos</ion-card-title>
+            </ion-card-header>
+            <ion-card-content>
+              <ion-item>
+                <ion-label position="stacked">Nombre</ion-label>
+                <ion-input placeholder="Ingrese su nombre"></ion-input>
+              </ion-item>
+              <ion-item>
+                <ion-label position="stacked">Apellido</ion-label>
+                <ion-input placeholder="Ingrese su apellido"></ion-input>
+              </ion-item>
+              <ion-item>
+                <ion-label position="stacked">Teléfono</ion-label>
+                <ion-input placeholder="Ingrese su teléfono"></ion-input>
+              </ion-item>
+              <ion-item>
+                <ion-label position="stacked">Tipo de Cliente</ion-label>
+                <ion-select 
+                  placeholder="Seleccione el tipo de cliente" >
+                  <ion-select-option value="interno">Interno</ion-select-option>
+                  <ion-select-option value="externo">Externo</ion-select-option>
+                </ion-select>
+              </ion-item>
+              <ion-item>
+                <ion-label position="stacked">Fecha</ion-label>
+                <ion-datetime 
+                  [value]="currentDate" 
+                  presentation="date"
+                  (ionChange)="onDateChange($event)">
+                </ion-datetime>
+              </ion-item>
+              <ion-item>
+                <ion-label position="stacked">Horario</ion-label>
+                <ion-select 
+                  placeholder="Seleccione un horario" 
+                  interface="popover" 
+                  [value]="selectedHour" 
+                  (ionChange)="onHourChange($event)">
+                  <ion-select-option *ngFor="let hour of availableHours" [value]="hour">{{ hour }}</ion-select-option>
+                </ion-select>
+              </ion-item>
+            </ion-card-content>
+          </ion-card>
+        </ion-col>
+
+        <!-- Columna de Servicios -->
+        <ion-col size-md="5" size="12"> <!-- 5 columnas en pantallas medianas, 12 en pequeñas -->
+          <ion-card>
+            <ion-card-header>
+              <ion-card-title>Servicios</ion-card-title>
+            </ion-card-header>
+            <ion-card-content>
+              <ion-list>
+                <ion-item>
+                  <ion-checkbox slot="start"></ion-checkbox>
+                  <ion-label>Corte pelo largo</ion-label>
+                </ion-item>
+                <ion-item>
+                  <ion-checkbox slot="start"></ion-checkbox>
+                  <ion-label>Corte pelo corto</ion-label>
+                </ion-item>
+                <ion-item>
+                  <ion-checkbox slot="start"></ion-checkbox>
+                  <ion-label>Mechas</ion-label>
+                </ion-item>
+                <ion-item>
+                  <ion-checkbox slot="start"></ion-checkbox>
+                  <ion-label>Peinado especial</ion-label>
+                </ion-item>
+                <ion-item>
+                  <ion-checkbox slot="start"></ion-checkbox>
+                  <ion-label>Tinte</ion-label>
+                </ion-item>
+                <ion-item>
+                  <ion-checkbox slot="start"></ion-checkbox>
+                  <ion-label>Peinado normal</ion-label>
+                </ion-item>
+              </ion-list>
+            </ion-card-content>
+          </ion-card>
+        </ion-col>
+      </ion-row>
+
+      <!-- Botón Añadir -->
+      <ion-row>
+        <ion-col>
+          <ion-button expand="block" color="primary">Añadir</ion-button>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </div>
+</ion-content>

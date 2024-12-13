@@ -1,0 +1,137 @@
+<ion-app>
+  <ion-header>
+    <app-barra-navegacion></app-barra-navegacion>
+  </ion-header>
+
+  <ion-content>
+    <app-nav-bar></app-nav-bar>
+
+      <div style="background: #535b7f; display: flex; align-items: center; padding: 10px; justify-content: center;">
+  
+        <!-- Selección de categoría (Grupos) - Deshabilitado -->
+        <select style="margin-right: 10px; padding: 5px;" disabled>
+          <option>Grupo 1</option>
+          <option>Grupo 2</option>
+          <option>Grupo 3</option>
+          <option>Grupo 4</option>
+          <option>Grupo 5</option>
+        </select>
+  
+        <div style=" display: flex; align-items: center; margin-right: 10px;">
+          <select style="border-radius: 5px; margin-right: 10px; padding: 5px;">
+            <option> Asier Bañuelos </option>
+            <option>Beñat Herrera</option>
+            <option>Asier Nicolas</option>
+          </select>
+          <button style="padding: 5px 10px; background-color: #FFA500; color: white; border: none; border-radius: 5px;">Editar</button>
+        </div>
+  
+        <div style="display: flex; align-items: center; margin-right: 10px;">
+          <button style="border: none; background: none; color:white;">&#9664;</button>
+          <span style=" color:white; margin: 0 5px;">Hoy</span>
+          <button style="border: none; background: none; color:white;">&#9654;</button>
+        </div>
+  
+        <div style="margin-right: 10px;">
+          <input type="date" value="2024-12-27" style="border-radius: 5px; padding: 5px;">
+        </div>
+        <button
+        style="padding: 5px 10px; background-color: #007BFF; color: white; border: none; border-radius: 5px;"
+      >
+        Añadir Cita
+      </button>
+      
+      </div>
+    <div style="display: flex; justify-content: center; padding: 20px; flex-wrap: wrap;">
+
+      <div style="text-align: center; margin: 10px;">
+        <img src="assets/fotos/descarga-_4_.png" alt="Integrante 1" style="border-radius: 50%; width: 80px; height: 80px;">
+        <p style="margin: 5px 0;">Asier Bañuelos</p>
+      </div>
+      <div style="text-align: center; margin: 10px;">
+        <img src="assets/fotos/descarga-_4_.png" alt="Integrante 2" style="border-radius: 50%; width: 80px; height: 80px;">
+        <p style="margin: 5px 0;">Beñat Herrera</p>
+      </div>
+      <div style="text-align: center; margin: 10px;">
+        <img src="assets/fotos/descarga-_4_.png" alt="Integrante 3" style="border-radius: 50%; width: 80px; height: 80px;">
+        <p style="margin: 5px 0;">Asier Nicolas</p>
+      </div>
+    </div>
+
+    <ion-card style="margin: 20px auto; width: 100%; max-width: 1000px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
+      <ion-card-header>
+        <ion-card-title style="text-align: center;">Últimas agendas</ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        <ion-grid>
+          <ion-row style="background-color: #00bec5; color: white; font-weight: bold;">
+            <ion-col size="1" style="text-align: center;">#</ion-col>
+            <ion-col size="2" style="text-align: center;">Cliente</ion-col>
+            <ion-col size="3" style="text-align: center;">Alumno</ion-col>
+            <ion-col size="2" style="text-align: center;">Servicios</ion-col>
+            <ion-col size="2" style="text-align: center;">Hora</ion-col>
+            <ion-col size="1" style="text-align: center;">Estado</ion-col>
+            <ion-col size="1" style="text-align: center;">Editar</ion-col>
+          </ion-row>
+    
+          <!-- Fila 1 -->
+          <ion-row style="color: black; align-items: center; margin-top: 10px;">
+            <ion-col size="1" style="text-align: center;">1</ion-col>
+            <ion-col size="2" style="text-align: center;">Raul Gomez</ion-col>
+            <ion-col size="3" style="text-align: center;">Asier Bañuelos</ion-col>
+            <ion-col size="2" style="text-align: center;">
+              <ion-icon name="color-palette-outline" style="font-size: 20px; margin-right: 5px;"></ion-icon>
+              <ion-icon name="cut-outline" style="font-size: 20px;"></ion-icon>
+            </ion-col>
+            <ion-col size="2" style="text-align: center;">10:00</ion-col>
+            <ion-col size="1" style="text-align: center; background-color: #FFA500; border-radius: 5px; color: rgb(0, 0, 0);">Proceso</ion-col>
+            <ion-col size="1" style="text-align: center;">
+              <ion-button fill="clear" size="small" color="primary">
+                <ion-icon name="create-outline"></ion-icon>
+              </ion-button>
+            </ion-col>
+          </ion-row>
+          <ion-item-divider></ion-item-divider>
+    
+          <!-- Fila 2 -->
+          <ion-row style="color: black; align-items: center; margin-top: 10px;">
+            <ion-col size="1" style="text-align: center;">2</ion-col>
+            <ion-col size="2" style="text-align: center;">Oier Garcia</ion-col>
+            <ion-col size="3" style="text-align: center;">Beñat Herrera</ion-col>
+            <ion-col size="2" style="text-align: center;">
+              <ion-icon name="color-palette-outline" style="font-size: 20px; margin-right: 5px;"></ion-icon>
+              <ion-icon name="cut-outline" style="font-size: 20px;"></ion-icon>
+            </ion-col>
+            <ion-col size="2" style="text-align: center;">10:30</ion-col>
+            <ion-col size="1" style="text-align: center; background-color: #02ff2c; border-radius: 5px; color: rgb(0, 0, 0);">Finalizado</ion-col>
+            <ion-col size="1" style="text-align: center;">
+              <ion-button fill="clear" size="small" color="primary">
+                <ion-icon name="create-outline"></ion-icon>
+              </ion-button>
+            </ion-col>
+          </ion-row>
+          <ion-item-divider></ion-item-divider>
+    
+          <!-- Fila 3 -->
+          <ion-row style="color: black; align-items: center; margin-top: 10px;">
+            <ion-col size="1" style="text-align: center;">3</ion-col>
+            <ion-col size="2" style="text-align: center;">No asignado</ion-col>
+            <ion-col size="3" style="text-align: center;">Asier Nicolas</ion-col>
+            <ion-col size="2" style="text-align: center;">
+              <ion-icon name="color-palette-outline" style="font-size: 20px; margin-right: 5px;"></ion-icon>
+              <ion-icon name="cut-outline" style="font-size: 20px;"></ion-icon>
+            </ion-col>
+            <ion-col size="2" style="text-align: center;">10:30</ion-col>
+            <ion-col size="1" style="text-align: center; background-color: #ff0202; border-radius: 5px; color: rgb(0, 0, 0);">Pendiente </ion-col>
+            <ion-col size="1" style="text-align: center;">
+              <ion-button fill="clear" size="small" color="primary">
+                <ion-icon name="create-outline"></ion-icon>
+              </ion-button>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-card-content>
+    </ion-card>
+    
+  </ion-content>
+</ion-app>

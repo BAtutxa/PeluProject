@@ -1,20 +1,21 @@
-import { Component, HostListener, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import dayGridPlugin from '@fullcalendar/daygrid';
-import timeGridPlugin from '@fullcalendar/timegrid';
-import interactionPlugin from '@fullcalendar/interaction';
+
 
 @Component({
-  selector: 'app-home',
-  templateUrl: 'home.page.html',
-  styleUrls: ['home.page.scss'],
+  selector: 'app-barra-navegacion',
+  templateUrl: './barra-navegacion.component.html',
+  styleUrls: ['./barra-navegacion.component.scss'],
 })
-export class HomePage implements OnInit {
+export class BarraNavegacionComponent  implements OnInit {
+
 
   isDarkMode: boolean = false;
   isMobile: boolean = false; // Para detectar si es móvil
 
   constructor(private router: Router) {}
+
+  
 
   ngOnInit() {
     this.checkScreenSize(); // Comprueba el tamaño de pantalla al iniciar la página
@@ -24,12 +25,6 @@ export class HomePage implements OnInit {
   toggleDarkMode() {
     this.isDarkMode = !this.isDarkMode;
     document.body.classList.toggle('dark', this.isDarkMode);
-  }
-
-  // Detecta el cambio de tamaño de la ventana
-  @HostListener('window:resize', ['$event'])
-  onResize(event: any) {
-    this.checkScreenSize(); // Actualiza el estado de isMobile al cambiar el tamaño
   }
 
   // Verifica si es una pantalla móvil
