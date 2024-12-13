@@ -1,4 +1,5 @@
 import { Component, HostListener, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import timeGridPlugin from '@fullcalendar/timegrid';
 import interactionPlugin from '@fullcalendar/interaction';
@@ -13,7 +14,7 @@ export class HomePage implements OnInit {
   isDarkMode: boolean = false;
   isMobile: boolean = false; // Para detectar si es móvil
 
-  constructor() {}
+  constructor(private router: Router) {}
 
   ngOnInit() {
     this.checkScreenSize(); // Comprueba el tamaño de pantalla al iniciar la página
@@ -34,5 +35,10 @@ export class HomePage implements OnInit {
   // Verifica si es una pantalla móvil
   checkScreenSize() {
     this.isMobile = window.innerWidth < 768; 
+  }
+
+  // Redirigir al login
+  goToLogin() {
+    this.router.navigate(['/login']);
   }
 }
