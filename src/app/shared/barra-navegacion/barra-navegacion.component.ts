@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { MenuController } from '@ionic/angular';
+
 
 
 @Component({
@@ -11,14 +13,15 @@ export class BarraNavegacionComponent  implements OnInit {
 
 
 
-  constructor(private router: Router) {}
+  constructor(private router: Router, private menuController: MenuController) {}
 
   
 
   ngOnInit() {
+    this.menuController.open(); // metodo para que este abierto el menu por defecto
   }
 
   goToLogin() {
-    this.router.navigate(['/login']);
+    this.router.navigate(['/login']); // metodo para salir de al login
   }
 }
