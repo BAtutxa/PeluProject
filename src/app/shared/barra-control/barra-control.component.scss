@@ -1,16 +1,13 @@
-.botonEliminar{
-    padding: 5px 10px;
-    background-color: #bf1102;
-    color: white;
-    border: none;
-    border-radius: 5px;
-  }
-  .barracontrol{
-    background-color: #535b7f;
+ .barracontrol {
     display: flex;
     align-items: center;
+    justify-content: center;
+    background-color: #535b7f;
     padding: 10px;
-    justify-content: center
-  
+    flex-wrap: wrap;
+    gap: 10px;
   }
-  
+  .barracontrol ion-select,
+  .barracontrol ion-datetime {
+    max-width: 150px;
+  }
