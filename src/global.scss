@@ -35,3 +35,18 @@
 /* @import "@ionic/angular/css/palettes/dark.always.css"; */
 /* @import "@ionic/angular/css/palettes/dark.class.css"; */
 @import "@ionic/angular/css/palettes/dark.system.css";
+
+.custom-modal {
+    --width: 70%; /* Ancho del modal */
+    --height: 90%; /* Alto del modal */
+    --border-radius: 15px; /* Opcional: bordes redondeados */
+    --background: white; /* Opcional: color de fondo */
+  }
+  
+  .custom-modal .modal-wrapper {
+    width: 70%;
+    height: 100%;
+    max-width: 500px; /* Ancho máximo */
+    max-height: 500px; /* Alto máximo */
+  }
+  
