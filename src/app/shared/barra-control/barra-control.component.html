@@ -1,34 +1,42 @@
 <div class="barracontrol">
-  <select style="margin-right: 10px; padding: 5px;" disabled>
-    <option>Grupo 1</option>
-    <option>Grupo 2</option>
-    <option>Grupo 3</option>
-    <option>Grupo 4</option>
-    <option>Grupo 5</option>
-  </select>
+  <ion-select
+    placeholder="Grupo 2" 
+    interface="popover"
+    style="margin-right: 10px; color: white;"
+    disabled
+  >  <!-- Aqui aparecera el grupo que esta trabajando actualmente -->
 
-  <div style="margin-right: 10px;">
-    <select style="border-radius: 5px; margin-right: 10px; padding: 5px;">
-      <option> Asier Bañuelos </option>
-      <option>Beñat Herrera</option>
-      <option>Asier Nicolas</option>
-    </select>
-    <button class="botonEliminar">Eliminar</button>
+    <ion-select-option>Grupo 1</ion-select-option>
+    <ion-select-option>Grupo 2</ion-select-option>
+    <ion-select-option>Grupo 3</ion-select-option>
+    <ion-select-option>Grupo 4</ion-select-option>
+    <ion-select-option>Grupo 5</ion-select-option>
+  </ion-select>
+
+  <div style="display: flex; align-items: center; margin-right: 10px;">
+    <ion-select
+      placeholder="Trabajadores"
+      interface="popover"
+      style="margin-right: 10px; color:white;"
+    >  <!-- Configurar para que pueda eliminar alguno por si no viene -->
+
+      <ion-select-option>Asier Bañuelos</ion-select-option>
+      <ion-select-option>Beñat Herrera</ion-select-option>
+      <ion-select-option>Asier Nicolas</ion-select-option>
+    </ion-select>
+    <ion-button color="danger" size="small" shape="round">Eliminar</ion-button>
   </div>
 
-  <div style="margin-right: 10px;">
-    <button style="border: none; background: none; color:white;">&#9664;</button>
-    <span style=" color:white; margin: 0 5px;">Hoy</span>
-    <button style="border: none; background: none; color:white;">&#9654;</button>
-  </div>
+<!-- Botones de navegación de fechas -->
+<div style="display: flex; align-items: center; margin-right: 10px;">
+  <ion-button fill="clear" color="light" size="small" (click)="retrocederFecha()">
+    <ion-icon slot="icon-only" name="chevron-back"></ion-icon>
+  </ion-button>
+  <ion-label style="color: white; font-size: 16px;">{{ fechaActual }}</ion-label> 
+  <ion-button fill="clear" color="light" size="small" (click)="avanzarFecha()">
+    <ion-icon slot="icon-only" name="chevron-forward"></ion-icon>
+  </ion-button>
+</div>
 
-  <div style="margin-right: 10px;">
-    <input type="date" value="2024-12-27" style="border-radius: 5px; padding: 5px;">
-  </div>
-  <button
-  style="padding: 5px 10px; background-color: #007BFF; color: white; border: none; border-radius: 5px;"
->
-  Añadir Cita
-</button>
-
+  <ion-button color="primary" size="small" shape="round">Añadir Cita</ion-button>
 </div>
