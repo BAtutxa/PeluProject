@@ -15,6 +15,16 @@ ion-toolbar {
   ion-avatar{
     padding: 10px;
   }
+  .menu-icon {
+    display: none; /* Ocultar el icono del menú por defecto */
+  }
+  
+  @media (max-width: 768px) {
+    .menu-icon {
+      display: flex; /* Mostrar el icono del menú solo en pantallas pequeñas */
+    }
+  }
+  
 
   
   
