@@ -4,6 +4,9 @@ import { CommonModule } from '@angular/common';
 import { IonicModule } from '@ionic/angular';
 import { NavBarComponent } from '../shared/nav-bar/nav-bar.component';
 import { RouterModule } from '@angular/router'; 
+import { BoxListComponent } from './box-list/box-list.component';
+import { BarraControlComponent } from './barra-control/barra-control.component';
+import { PopcitaComponent } from './popcita/popcita.component';
 
 
 
@@ -11,7 +14,7 @@ import { RouterModule } from '@angular/router';
 
 @NgModule({
   declarations: [
-    BarraNavegacionComponent,NavBarComponent
+    BarraNavegacionComponent,NavBarComponent, BoxListComponent, BarraControlComponent,PopcitaComponent
   ],
   imports: [
     CommonModule,
@@ -21,7 +24,10 @@ import { RouterModule } from '@angular/router';
   ],
   exports:[
     BarraNavegacionComponent,
-    NavBarComponent
+    NavBarComponent,
+    BoxListComponent,
+    BarraControlComponent,
+    PopcitaComponent
   ]
 })
 export class SharedModule { }

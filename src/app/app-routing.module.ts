@@ -16,14 +16,7 @@ const routes: Routes = [
     path: 'home',
     loadChildren: () => import('./pages/home/home.module').then( m => m.HomePageModule)
   },
-  {
-    path: 'clientes',
-    loadChildren: () => import('./pages/clientes/clientes.module').then( m => m.ClientesPageModule)
-  },
-  {
-    path: 'tablero',
-    loadChildren: () => import('./pages/tablero/tablero.module').then( m => m.TableroPageModule)
-  },
+
 ];
 
 @NgModule({

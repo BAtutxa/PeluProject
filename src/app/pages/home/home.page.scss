@@ -1,21 +1,50 @@
 ion-content {
   --background: #f8f9fa ;
 }
-.botonEliminar{
-  padding: 5px 10px;
-  background-color: #bf1102;
-  color: white;
-  border: none;
-  border-radius: 5px;
-}
-.barracontrol{
-  background-color: #535b7f;
-  display: flex;
-  align-items: center;
-  padding: 10px;
-  justify-content: center
 
+.center{
+  align-items: center;
 }
+
+ion-grid {
+  width: 100%;
+  margin-left: 0;
+
+  /* Ajusta el ancho del grid si hay un menú lateral solo a la izquierda */
+  @media (min-width: 768px) { /* Pantallas medianas en adelante */
+    margin-left: var(--menu-width, 250px); /* Espacio para el menú lateral */
+    max-width: calc(100% - var(--menu-width, 250px)); /* Resta solo el ancho del menú lateral */
+  }
+
+  @media (min-width: 1200px) { /* Pantallas grandes */
+    margin-left: var(--menu-width, 350px); /* Espacio para un menú más ancho */
+    max-width: calc(100% - var(--menu-width, 450px)); /* Resta solo el ancho del menú lateral */
+  }
+}
+
+.header-row {
+  background-color: #3c7fc7; 
+  color:white;
+  font-weight: bold;   
+}      
+
+.header-cell {
+  text-align: center;        
+  padding: 8px;              
+}
+
+ion-row {
+  border-bottom: 1px solid #dcdcdc;
+}
+
+
+
+
+
+
+
+
+
 
 
 

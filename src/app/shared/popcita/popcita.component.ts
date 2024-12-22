@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'app-home',
-  templateUrl: 'clientes.page.html',
-  styleUrls: ['clientes.page.scss'],
+  selector: 'app-popcita',
+  templateUrl: './popcita.component.html',
+  styleUrls: ['./popcita.component.scss'],
 })
-export class ClientesPage implements OnInit {
+export class PopcitaComponent  implements OnInit {
   currentDate: string; // Variable para almacenar la fecha actual
   availableHours: string[]; // Lista de horarios disponibles
   selectedHour: string; // Horario seleccionado por el usuario
