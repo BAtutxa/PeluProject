@@ -20,6 +20,20 @@ const routes: Routes = [
     path: 'agenda',
     loadChildren: () => import('./pages/agenda/agenda.module').then( m => m.AgendaPageModule)
   },
+  {
+    path: 'ficha',
+    loadChildren: () => import('./pages/ficha/ficha.module').then( m => m.FichaPageModule)
+  },
+  {
+    path: 'trabajadores',
+    loadChildren: () => import('./pages/trabajadores/trabajadores.module').then( m => m.TrabajadoresPageModule)
+  },
+  {
+    path: 'control-stock',
+    loadChildren: () => import('./pages/control-stock/control-stock.module').then( m => m.ControlStockPageModule)
+  },
+
+
 ];
 
 @NgModule({

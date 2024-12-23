@@ -10,7 +10,7 @@ export class AgendaPage implements OnInit {
     {
       cliente: 'Raul Gomez',
       alumno: '', // Sin asignar al inicio
-      servicio: 'Corte de cabello',
+      servicio: 'Corte de pelo',
       hora: '10:30 AM',
       estado: 'Pendiente', // Estado inicial
       tiempo: '00:00:00', // Tiempo inicial
