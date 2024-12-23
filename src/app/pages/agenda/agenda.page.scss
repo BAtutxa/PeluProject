@@ -1,0 +1,70 @@
+.card-container {
+    padding: 10px;
+    margin-left: 0; /* Por defecto, sin margen en móviles */
+    max-width: 100%; /* Ancho completo en móviles */
+  
+    /* Para pantallas grandes (respetar el menú lateral) */
+    @media (min-width: 768px) {
+      margin-left: 250px; /* Espacio para el menú lateral */
+      max-width: calc(100% - 250px); /* Ajusta el ancho para respetar el menú */
+    }
+  }
+  
+  ion-card {
+    margin-bottom: 16px;
+    border: 1px solid #e0e0e0;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  }
+  
+  ion-card-header {
+    background-color: #f4f4f4;
+    padding: 10px;
+    border-bottom: 1px solid #e0e0e0;
+  }
+  
+  ion-card-title {
+    font-size: 16px;
+    font-weight: bold;
+    color: #333;
+  }
+  
+  ion-item {
+    --padding-start: 0;
+    --inner-padding-end: 0;
+    --inner-padding-top: 8px;
+    --inner-padding-bottom: 8px;
+  }
+  
+  .button-container {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 10px;
+  }
+  
+  ion-button {
+    font-size: 14px;
+    width: 100%;
+  }
+  
+  /* Ajustes específicos para móviles */
+  @media (max-width: 768px) {
+    .card-container {
+      margin-left: 0; /* Elimina el margen izquierdo en móviles */
+      max-width: 100%; /* Usa todo el ancho en móviles */
+    }
+  
+    ion-card-title {
+      font-size: 14px;
+    }
+  
+    ion-item {
+      --inner-padding-top: 6px;
+      --inner-padding-bottom: 6px;
+    }
+  
+    ion-button {
+      font-size: 12px;
+    }
+  }
+  
