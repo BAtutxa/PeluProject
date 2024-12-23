@@ -18,6 +18,7 @@
               placeholder="Seleccionar"
               interface="popover"
               (ionChange)="onAlumnoChange($event, i)"
+              [disabled]="!!service.alumno"> 
             >
               <ion-select-option value="Asier Bañuelos">Asier Bañuelos</ion-select-option>
               <ion-select-option value="Beñat Herrera">Beñat Herrera</ion-select-option>
