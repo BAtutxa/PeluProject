@@ -1,0 +1,12 @@
+.custom-searchbar {
+    margin-left: var(--menu-width, 350px);
+    max-width: calc(100% - var(--menu-width, 450px));
+  }
+  
+  @media (min-width: 1200px) {
+    .custom-searchbar {
+      margin-left: var(--menu-width, 250px); /* Ajuste para el menú */
+      max-width: calc(100% - var(--menu-width, 450px)); /* Resta el ancho del menú */
+    }
+  }
+  
