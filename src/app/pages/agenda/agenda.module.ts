@@ -1,21 +1,21 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-
-import { IonicModule } from '@ionic/angular';
-
+import { IonicModule } from '@ionic/angular';  
 import { AgendaPageRoutingModule } from './agenda-routing.module';
-
 import { AgendaPage } from './agenda.page';
 import { SharedModule } from 'src/app/shared/shared.module';
+
+
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
-    IonicModule,
+    IonicModule, 
     AgendaPageRoutingModule,
     SharedModule
+    
   ],
   declarations: [AgendaPage]
 })

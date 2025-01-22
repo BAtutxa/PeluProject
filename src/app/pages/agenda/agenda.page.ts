@@ -1,75 +1,123 @@
 import { Component, OnInit } from '@angular/core';
+import { HitzorduakService, Cita } from '../../service/hitzorduak.service';
 
 @Component({
-  selector: 'app-agenda',
+  selector: 'app-agendas',
   templateUrl: './agenda.page.html',
   styleUrls: ['./agenda.page.scss'],
 })
+
 export class AgendaPage implements OnInit {
-  services = [
-    {
-      cliente: 'Raul Gomez',
-      alumno: '', // Sin asignar al inicio
-      servicio: 'Corte de pelo',
-      hora: '10:30 AM',
-      estado: 'Pendiente', // Estado inicial
-      tiempo: '00:00:00', // Tiempo inicial
-      duracionTotal: '', // Duración total del servicio
-      contador: false,
-      intervalo: null as any, // Para almacenar el intervalo del cronómetro
-      segundosTotales: 0, // Segundos totales del cronómetro
-    },
-  ];
+  citas: Cita[] = [];
 
-  ngOnInit(): void {}
+  services: any[] = [];  // Inicializado correctamente
 
-  // Cuando se asigna un alumno
-  onAlumnoChange(event: any, index: number) {
-    const alumnoSeleccionado = event.detail.value;
-    this.services[index].alumno = alumnoSeleccionado;
-    if (alumnoSeleccionado) {
-      this.services[index].estado = 'Pendiente'; // Cambia el estado a pendiente
-    }
+  private timers: any[] = [];  // Para almacenar los intervalos de tiempo para cada servicio
+
+  constructor(private hitzorduakService: HitzorduakService) {}
+
+  ngOnInit() {
+    this.cargarCitas();
   }
 
-  // Iniciar el temporizador
+  // Método para obtener citas desde el backend
+  cargarCitas() {
+    this.hitzorduakService.getHitzorduak().subscribe(
+      (data) => {
+        this.citas = data;
+        console.log('Citas cargadas:', this.citas);
+
+        // Mapear las citas al formato de services
+        this.services = this.citas.map(cita => ({
+          id: cita.id,
+          cliente: cita.izena,
+          servicio: cita.deskribapena || 'Sin descripción',
+          hora: cita.hasieraOrdua,
+          estado: 'Pendiente',
+          alumno: null,
+          intervalo: false,
+          tiempo: '00:00',
+          duracionTotal: null
+        }));
+      },
+      (error) => {
+        console.error('Error al cargar citas:', error);
+      }
+    );
+  }
+
+  agregarCita(nuevaCita: any) {
+    console.log('Cita recibida:', nuevaCita);  // Verificar si se recibe correctamente
+    this.services.push({
+      cliente: nuevaCita.izena,
+      servicio: nuevaCita.deskribapena,
+      hora: nuevaCita.hasieraOrdua,
+      estado: 'Pendiente',
+      alumno: null,
+      intervalo: false,
+      tiempo: '00:00',
+      duracionTotal: null
+    });
+  }
+  
   startTimer(index: number) {
     if (this.services[index].intervalo) {
-      return; // Evitar reiniciar si ya está corriendo
+      return;  // Si ya está en marcha, no hacer nada
     }
 
-    // Configura el temporizador
+    this.services[index].intervalo = true;
     this.services[index].estado = 'En proceso';
-    this.services[index].intervalo = window.setInterval(() => {
-      this.services[index].segundosTotales++;
-      const horas = Math.floor(this.services[index].segundosTotales / 3600);
-      const minutos = Math.floor((this.services[index].segundosTotales % 3600) / 60);
-      const segundosRestantes = this.services[index].segundosTotales % 60;
 
-      this.services[index].tiempo = `${this.formatTime(horas)}:${this.formatTime(minutos)}:${this.formatTime(segundosRestantes)}`;
+    // Captura la hora actual como hora real de inicio
+    const ahora = new Date();
+    const horaReal = ahora.toTimeString().split(' ')[0].substring(0, 5); // Formato HH:mm
+
+    // Llamar al backend para guardar la hora real de inicio
+    this.hitzorduakService.updateHoraReal(this.services[index].id, horaReal).subscribe(
+      () => {
+        console.log('Hora real de inicio actualizada');
+        this.services[index].hora = horaReal;
+      },
+      (error) => console.error('Error al actualizar hora real:', error)
+    );
+
+    let seconds = 0;
+    this.timers[index] = setInterval(() => {
+      seconds++;
+      const minutes = Math.floor(seconds / 60);
+      const remainingSeconds = seconds % 60;
+      this.services[index].tiempo = `${this.pad(minutes)}:${this.pad(remainingSeconds)}`;
     }, 1000);
   }
 
-  // Finalizar el servicio
   finalizarServicio(index: number) {
-    if (this.services[index].intervalo !== null) {
-      clearInterval(this.services[index].intervalo); // Detener el temporizador
+    if (!this.services[index].intervalo) {
+      return;  // Si el temporizador no está en marcha, no hacer nada
     }
 
-    // Calcular la duración total
-    const horas = Math.floor(this.services[index].segundosTotales / 3600);
-    const minutos = Math.floor((this.services[index].segundosTotales % 3600) / 60);
-    const segundosRestantes = this.services[index].segundosTotales % 60;
+    clearInterval(this.timers[index]);
+    this.services[index].intervalo = false;
+    this.services[index].estado = 'Finalizado';
+    this.services[index].duracionTotal = this.services[index].tiempo;
 
-    this.services[index].duracionTotal = `${this.formatTime(horas)}:${this.formatTime(minutos)}:${this.formatTime(segundosRestantes)}`;
+    // Capturar la hora actual cuando se finaliza el servicio
+    const ahora = new Date();
+    const horaFinalReal = ahora.toTimeString().split(' ')[0].substring(0, 5); // Formato HH:mm
 
-    this.services[index].estado = 'Finalizado'; // Cambia el estado a Finalizado
-    this.services[index].contador = false;
-    this.services[index].intervalo = null; // Reinicia el intervalo
+    this.hitzorduakService.updateHoraFinalReal(this.services[index].id, horaFinalReal).subscribe( // llamamos al servicio para obetener la hora de finalizacion de la cita
+      () => console.log('Hora real de finalización actualizada'),
+      (error) => console.error('Error al actualizar hora real de finalización:', error)
+    );
+
+    console.log(`Servicio finalizado para ${this.services[index].cliente}, Duración total: ${this.services[index].duracionTotal}`);
   }
 
-  // Formatear el tiempo
-  formatTime(value: number): string {
-    return value < 10 ? `0${value}` : `${value}`;
+    onAlumnoChange(event: any, index: number) {
+      this.services[index].alumno = event.detail.value;
+    }
+
+    // Formatear números de tiempo
+    private pad(value: number): string {
+      return value < 10 ? `0${value}` : value.toString();
+    }
   }
-}

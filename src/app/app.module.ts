@@ -5,6 +5,11 @@ import { FullCalendarModule } from '@fullcalendar/angular';
 import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { FormsModule } from '@angular/forms';
+import { PopcitaComponent } from './shared/popcita/popcita.component';
+
+
 
 @NgModule({
   declarations: [
@@ -14,7 +19,10 @@ import { AppRoutingModule } from './app-routing.module';
     BrowserModule,
     IonicModule.forRoot(),
     AppRoutingModule,
-    FullCalendarModule
+    FullCalendarModule,
+    FormsModule,
+    HttpClientModule
+
   ],
   providers: [
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { PopcitaComponent } from '../popcita/popcita.component';
 
@@ -8,15 +8,36 @@ import { PopcitaComponent } from '../popcita/popcita.component';
   templateUrl: './barra-control.component.html',
   styleUrls: ['./barra-control.component.scss'],
 })
-export class BarraControlComponent implements OnInit {
-  fechaActual: string='';
+export class BarraControlComponent {
 
-  constructor(private modalCtrl: ModalController) {}
+  constructor(private modalCtrl: ModalController){}
 
-  ngOnInit() {
-    // fecha actual
-    this.fechaActual = new Date().toISOString().split('T')[0];
+
+  @Output() citaAñadida = new EventEmitter<any>();
+  mostrarPopcita = false;
+  fechaActual: string = new Date().toISOString().split('T')[0];
+
+  async abrirPopup() {
+    const modal = await this.modalCtrl.create({
+      component: PopcitaComponent,
+      cssClass: 'custom-modal',
+        
+    });
+
+    modal.onDidDismiss().then((result) => {
+      if (result.data) {
+        this.agregarCita(result.data);
+      }
+    });
+
+    await modal.present();
   }
+
+  agregarCita(event: any) {
+    this.citaAñadida.emit(event); 
+    this.mostrarPopcita = false; 
+  }
+
   retrocederFecha() {
     const fecha = new Date(this.fechaActual);
     fecha.setDate(fecha.getDate() - 1);
@@ -27,14 +48,5 @@ export class BarraControlComponent implements OnInit {
     const fecha = new Date(this.fechaActual);
     fecha.setDate(fecha.getDate() + 1);
     this.fechaActual = fecha.toISOString().split('T')[0];
-  }
-
-  async abrirPopup() { //Metodo para abrir el componente de citas
-    const modal = await this.modalCtrl.create({
-      component: PopcitaComponent,
-      cssClass: 'custom-modal', 
-
-    });
-    await modal.present();
   }
 }

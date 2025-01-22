@@ -1,50 +1,76 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
+import { ModalController } from '@ionic/angular';
 
 @Component({
   selector: 'app-popcita',
   templateUrl: './popcita.component.html',
   styleUrls: ['./popcita.component.scss'],
 })
-export class PopcitaComponent  implements OnInit {
-  currentDate: string; // Variable para almacenar la fecha actual
-  availableHours: string[]; // Lista de horarios disponibles
-  selectedHour: string; // Horario seleccionado por el usuario
+export class PopcitaComponent {
+  @Output() citaAñadida = new EventEmitter<any>();
 
-  constructor() {
-    // Inicializa la fecha actual en formato ISO
-    const today = new Date();
-    this.currentDate = today.toISOString();
+  currentDate: string = new Date().toISOString();
+  availableHours: string[] = ['10:00 AM', '11:00 AM', '12:00 PM', '01:00 PM']; // Aqui mirar a ver que horas son las necesarias de agregar a la hora de coger citas
 
-    // Inicializar variables de horario
-    this.availableHours = this.generateHours(); // Generar horarios disponibles
-    this.selectedHour = ''; // Inicialmente vacío
+  cita = { // Pensar y configurar todos los atributos a la hora de agregar una cita 
+    izena: '',
+    data: '',
+    hasieraOrdua: '',
+    deskribapena: ''
+  };
+
+  constructor(private modalCtrl: ModalController) {}
+
+  cambiarFecha(event: any) {
+    this.cita.data = event.detail.value;
   }
 
-  ngOnInit() {
-    console.log('Fecha actual inicializada:', this.currentDate);
+  cambioHora(event: any) {
+    this.cita.hasieraOrdua = event.detail.value;
   }
 
-  // Método para manejar el cambio de fecha
-  onDateChange(event: any) {
-    console.log('Fecha seleccionada:', event.detail.value);
-    this.currentDate = event.detail.value; // Actualizar la fecha actual con la nueva seleccionada
-  }
-
-  // Generar una lista de horarios cada 30 minutos
-  private generateHours(): string[] {
-    const hours = [];
-    for (let i = 10; i <= 14; i++) {
-      // Horas de 8:00 a 14:00
-      hours.push(`${i.toString().padStart(2, '0')}:00`);
-      hours.push(`${i.toString().padStart(2, '0')}:30`);
-
+  toggleService(service: string, isChecked: boolean) {
+    if (isChecked) {
+      if (!this.cita.deskribapena.includes(service)) {
+        this.cita.deskribapena = this.cita.deskribapena
+          ? `${this.cita.deskribapena}, ${service}`
+          : service;
+      }
+    } else {
+      // Eliminar el servicio seleccionado correctamente
+      const servicios = this.cita.deskribapena.split(', ').filter(s => s !== service);
+      this.cita.deskribapena = servicios.join(', ');
     }
-    return hours;
   }
 
-  // Manejar cambios en el horario seleccionado
-  onHourChange(event: any) {
-    console.log('Horario seleccionado:', event.detail.value);
-    this.selectedHour = event.detail.value;
+anadirCita() {
+  if (!this.cita.izena || !this.cita.data || !this.cita.hasieraOrdua) {
+    alert('Por favor, complete todos los campos obligatorios.');
+    return;
+  }
+
+  const citaFormateada = {
+    izena: this.cita.izena,
+    data: this.cita.data.split('T')[0],  
+    hasieraOrdua: this.cita.hasieraOrdua,
+    deskribapena: this.cita.deskribapena.trim(),
+  };
+
+  console.log('Cita a enviar:', citaFormateada);  // Depuración
+  this.citaAñadida.emit(citaFormateada);
+  this.modalCtrl.dismiss(citaFormateada);
+}
+
+  cerrarModal() {
+    this.modalCtrl.dismiss(); // Cerrar el modal sin enviar datos
+  }
+
+  resetForm() {
+    this.cita = {
+      izena: '',
+      data: '',
+      hasieraOrdua: '',
+      deskribapena: ''
+    };
   }
 }

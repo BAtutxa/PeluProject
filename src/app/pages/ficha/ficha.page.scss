@@ -2,6 +2,8 @@
     margin-left: var(--menu-width, 350px);
     max-width: calc(100% - var(--menu-width, 450px));
   }
+
+  
   
   @media (min-width: 1200px) {
     .custom-searchbar {

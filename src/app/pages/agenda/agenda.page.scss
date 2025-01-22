@@ -1,14 +1,6 @@
-.card-container {
-    padding: 10px;
-    margin-left: 0; /* Por defecto, sin margen en móviles */
-    max-width: 100%; /* Ancho completo en móviles */
-  
-    /* Para pantallas grandes (respetar el menú lateral) */
-    @media (min-width: 768px) {
-      margin-left: 250px; /* Espacio para el menú lateral */
-      max-width: calc(100% - 250px); /* Ajusta el ancho para respetar el menú */
-    }
-  }
+ion-grid{
+  max-width: 80%;
+}
   
   ion-card {
     margin-bottom: 16px;

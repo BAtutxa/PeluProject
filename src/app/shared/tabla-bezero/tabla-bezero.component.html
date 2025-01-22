@@ -1,0 +1,20 @@
+<ion-grid style="margin-left: var(--menu-width, 350px); max-width: calc(100% - var(--menu-width, 450px));">
+  <ion-row>
+    <ion-col size="3"><strong>Nombre</strong></ion-col>
+    <ion-col size="3"><strong>Apellido</strong></ion-col>
+    <ion-col size="3"><strong>Edad</strong></ion-col>
+    <ion-col size="3"><strong>Acción</strong></ion-col>
+  </ion-row>
+
+  <ion-row *ngFor="let alumno of alumnos">
+    <ion-col size="3">{{ alumno.nombre }}</ion-col>
+    <ion-col size="3">{{ alumno.apellido }}</ion-col>
+    <ion-col size="3">{{ alumno.edad }}</ion-col>
+    <ion-col size="3">
+      <ion-button fill="clear" (click)="verFicha(alumno)">
+        <ion-icon name="eye-outline"></ion-icon>
+      </ion-button>
+    </ion-col>
+  </ion-row>
+</ion-grid>
+

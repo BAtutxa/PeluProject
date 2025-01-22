@@ -2,88 +2,83 @@
   <app-barra-navegacion></app-barra-navegacion>
   <ion-content>
     <app-nav-bar></app-nav-bar>
-    <app-barra-control></app-barra-control> <!-- BARRA CONTROLADOR -->
+    <app-barra-control (citaAñadida)="agregarCita($event)"></app-barra-control>
 
-    <div class="card-container">
-      <ion-card *ngFor="let service of services; let i = index">
-        <ion-card-header>
-          <ion-card-title>Cliente: {{ service.cliente }}</ion-card-title>
-        </ion-card-header>
+    <ion-grid>
+      <ion-row>
+        <ion-col size="12" size-md="6" size-lg="3" *ngFor="let service of services; let i = index">
+          <ion-card>
+            <ion-card-header>
+              <ion-card-title>Cliente: {{ service.cliente }}</ion-card-title>
+            </ion-card-header>
 
-        <ion-card-content>
-          <!-- Alumno -->
-          <ion-item>
-            <ion-label>Alumno:</ion-label>
-            <ion-select
-              placeholder="Seleccionar"
-              interface="popover"
-              (ionChange)="onAlumnoChange($event, i)"
-              [disabled]="!!service.alumno"> 
-            >
-              <ion-select-option value="Asier Bañuelos">Asier Bañuelos</ion-select-option>
-              <ion-select-option value="Beñat Herrera">Beñat Herrera</ion-select-option>
-              <ion-select-option value="Asier Nicolas">Asier Nicolas</ion-select-option>
-            </ion-select>
-          </ion-item>
+            <ion-card-content>
+              <ion-item>
+                <ion-label>Alumno:</ion-label>
+                <ion-select
+                  placeholder="Seleccionar"
+                  interface="popover"
+                  (ionChange)="onAlumnoChange($event, i)"
+                  [disabled]="!!service.alumno"
+                >
+                  <ion-select-option value="Asier Bañuelos">Asier Bañuelos</ion-select-option>
+                  <ion-select-option value="Beñat Herrera">Beñat Herrera</ion-select-option>
+                  <ion-select-option value="Asier Nicolas">Asier Nicolas</ion-select-option>
+                </ion-select>
+              </ion-item>
 
-          <!-- Servicios -->
-          <ion-item>
-            <ion-label>Servicios:</ion-label>
-            <ion-text>{{ service.servicio }}</ion-text>
-          </ion-item>
+              <ion-item>
+                <ion-label>Servicios:</ion-label>
+                <ion-text>{{ service.servicio }}</ion-text>
+              </ion-item>
 
-          <!-- Hora -->
-          <ion-item>
-            <ion-label>Hora:</ion-label>
-            <ion-text>{{ service.hora }}</ion-text>
-          </ion-item>
+              <ion-item>
+                <ion-label>Hora:</ion-label>
+                <ion-text>{{ service.hora }}</ion-text>
+              </ion-item>
 
-          <!-- Estado -->
-          <ion-item>
-            <ion-label>Estado:</ion-label>
-            <ion-text>
-              <span *ngIf="service.estado === 'Pendiente'">Pendiente</span>
-              <span *ngIf="service.estado === 'En proceso'">En proceso</span>
-              <span *ngIf="service.estado === 'Finalizado'">Finalizado</span>
-            </ion-text>
-          </ion-item>
+              <ion-item>
+                <ion-label>Estado:</ion-label>
+                <ion-text>
+                  <span *ngIf="service.estado === 'Pendiente'">Pendiente</span>
+                  <span *ngIf="service.estado === 'En proceso'">En proceso</span>
+                  <span *ngIf="service.estado === 'Finalizado'">Finalizado</span>
+                </ion-text>
+              </ion-item>
 
-          <!-- Tiempo y Botones -->
-          <div *ngIf="service.alumno" class="button-container">
-            <!-- Cronómetro -->
-            <ion-item *ngIf="service.intervalo">
-              <ion-label>Tiempo:</ion-label>
-              <ion-text>{{ service.tiempo }}</ion-text>
-            </ion-item>
+              <div *ngIf="service.alumno" class="button-container">
+                <ion-item *ngIf="service.intervalo">
+                  <ion-label>Tiempo:</ion-label>
+                  <ion-text>{{ service.tiempo }}</ion-text>
+                </ion-item>
 
-            <!-- Botón Iniciar (solo si no está finalizado) -->
-            <ion-button
-              expand="block"
-              color="success"
-              *ngIf="!service.intervalo && service.estado !== 'Finalizado'"
-              (click)="startTimer(i)"
-            >
-              Iniciar
-            </ion-button>
+                <ion-button
+                  expand="block"
+                  color="success"
+                  *ngIf="!service.intervalo && service.estado !== 'Finalizado'"
+                  (click)="startTimer(i)"
+                >
+                  Iniciar
+                </ion-button>
 
-            <!-- Botón Finalizar -->
-            <ion-button
-              expand="block"
-              color="primary"
-              *ngIf="service.intervalo"
-              (click)="finalizarServicio(i)"
-            >
-              Finalizar
-            </ion-button>
+                <ion-button
+                  expand="block"
+                  color="primary"
+                  *ngIf="service.intervalo"
+                  (click)="finalizarServicio(i)"
+                >
+                  Finalizar
+                </ion-button>
 
-            <!-- Mostrar duración total después de finalizar -->
-            <ion-item *ngIf="service.duracionTotal">
-              <ion-label>Duración Total:</ion-label>
-              <ion-text>{{ service.duracionTotal }}</ion-text>
-            </ion-item>
-          </div>
-        </ion-card-content>
-      </ion-card>
-    </div>
+                <ion-item *ngIf="service.duracionTotal">
+                  <ion-label>Duración Total:</ion-label>
+                  <ion-text>{{ service.duracionTotal }}</ion-text>
+                </ion-item>
+              </div>
+            </ion-card-content>
+          </ion-card>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
   </ion-content>
 </ion-app>
