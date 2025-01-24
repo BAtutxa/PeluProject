@@ -10,9 +10,9 @@ import { HitzorduakService, Cita } from '../../service/hitzorduak.service';
 export class AgendaPage implements OnInit {
   citas: Cita[] = [];
 
-  services: any[] = [];  // Inicializado correctamente
+  services: any[] = [];  
 
-  private timers: any[] = [];  // Para almacenar los intervalos de tiempo para cada servicio
+  private timers: any[] = [];  
 
   constructor(private hitzorduakService: HitzorduakService) {}
 
@@ -50,6 +50,7 @@ export class AgendaPage implements OnInit {
     console.log('Cita recibida:', nuevaCita);  // Verificar si se recibe correctamente
     this.services.push({
       cliente: nuevaCita.izena,
+
       servicio: nuevaCita.deskribapena,
       hora: nuevaCita.hasieraOrdua,
       estado: 'Pendiente',

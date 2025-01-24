@@ -10,23 +10,45 @@ export class PopcitaComponent {
   @Output() citaAñadida = new EventEmitter<any>();
 
   currentDate: string = new Date().toISOString();
-  availableHours: string[] = ['10:00 AM', '11:00 AM', '12:00 PM', '01:00 PM']; // Aqui mirar a ver que horas son las necesarias de agregar a la hora de coger citas
+  availableHours: string[] = [
+    '10:00 AM', '10:30 AM',
+    '11:00 AM', '11:30 AM',
+    '12:00 AM', '12:30 PM',
+    '13:00 PM', '13:30 PM',
+    '14:00 PM'
+  ];
 
-  cita = { // Pensar y configurar todos los atributos a la hora de agregar una cita 
+  cita = {
     izena: '',
+    telefonoa: '',
+    etxekoa: 'E',
     data: '',
     hasieraOrdua: '',
-    deskribapena: ''
+    amaieraOrdua: '',
+    deskribapena: '',
+    eserlekua: 0, // Asiento predeterminado
+    hasieraOrduaErreala: null,
+    amaieraOrduaErreala: null,
+    prezioTotala: 0.0, // Precio predeterminado
+    sortzeData: ''
   };
 
   constructor(private modalCtrl: ModalController) {}
 
   cambiarFecha(event: any) {
-    this.cita.data = event.detail.value;
+    this.cita.data = event.detail.value.split('T')[0]; // Formato YYYY-MM-DD
   }
 
-  cambioHora(event: any) {
+  cambioHoraInicio(event: any) {
     this.cita.hasieraOrdua = event.detail.value;
+  }
+
+  cambioHoraFinal(event: any) {
+    this.cita.amaieraOrdua = event.detail.value;
+  }
+
+  toggleEtxekoa(isChecked: boolean) {
+    this.cita.etxekoa = isChecked ? 'E' : 'K';
   }
 
   toggleService(service: string, isChecked: boolean) {
@@ -37,29 +59,36 @@ export class PopcitaComponent {
           : service;
       }
     } else {
-      // Eliminar el servicio seleccionado correctamente
       const servicios = this.cita.deskribapena.split(', ').filter(s => s !== service);
       this.cita.deskribapena = servicios.join(', ');
     }
   }
 
-anadirCita() {
-  if (!this.cita.izena || !this.cita.data || !this.cita.hasieraOrdua) {
-    alert('Por favor, complete todos los campos obligatorios.');
-    return;
+  anadirCita() {
+    if (!this.cita.izena || !this.cita.telefonoa || !this.cita.data || !this.cita.hasieraOrdua) {
+      alert('Por favor, complete todos los campos obligatorios.');
+      return;
+    }
+
+    const citaFormateada = {
+      izena: this.cita.izena,
+      telefonoa: this.cita.telefonoa || '', // Valor por defecto si está vacío
+      etxekoa: this.cita.etxekoa,
+      data: this.cita.data,
+      hasieraOrdua: this.cita.hasieraOrdua,
+      amaieraOrdua: this.cita.amaieraOrdua || null,  // Permitir valor nulo
+      deskribapena: this.cita.deskribapena.trim() || '',
+      eserlekua: this.cita.eserlekua,
+      hasieraOrduaErreala: null,
+      amaieraOrduaErreala: null,
+      prezioTotala: this.cita.prezioTotala,
+      sortzeData: new Date().toISOString() // Fecha actual con hora
+    };
+
+    console.log('Cita a enviar:', citaFormateada);
+    this.citaAñadida.emit(citaFormateada);
+    this.modalCtrl.dismiss(citaFormateada);
   }
-
-  const citaFormateada = {
-    izena: this.cita.izena,
-    data: this.cita.data.split('T')[0],  
-    hasieraOrdua: this.cita.hasieraOrdua,
-    deskribapena: this.cita.deskribapena.trim(),
-  };
-
-  console.log('Cita a enviar:', citaFormateada);  // Depuración
-  this.citaAñadida.emit(citaFormateada);
-  this.modalCtrl.dismiss(citaFormateada);
-}
 
   cerrarModal() {
     this.modalCtrl.dismiss(); // Cerrar el modal sin enviar datos
@@ -68,9 +97,17 @@ anadirCita() {
   resetForm() {
     this.cita = {
       izena: '',
+      telefonoa: '',
+      etxekoa: 'E',
       data: '',
       hasieraOrdua: '',
-      deskribapena: ''
+      amaieraOrdua: '',
+      deskribapena: '',
+      eserlekua: 0,
+      hasieraOrduaErreala: null,
+      amaieraOrduaErreala: null,
+      prezioTotala: 0.0,
+      sortzeData: ''
     };
   }
 }

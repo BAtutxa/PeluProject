@@ -12,6 +12,14 @@
               <ion-input [(ngModel)]="cita.izena" placeholder="Ingrese su nombre"></ion-input>
             </ion-item>
             <ion-item>
+              <ion-label>Etxekoa</ion-label>
+              <ion-checkbox [(ngModel)]="cita.etxekoa" (ionChange)="toggleEtxekoa($event.detail.checked)"></ion-checkbox>
+            </ion-item>
+            <ion-item>
+              <ion-label position="stacked">Teléfono</ion-label>
+              <ion-input type="tel" [(ngModel)]="cita.telefonoa" placeholder="Ingrese su teléfono"></ion-input>
+            </ion-item>
+            <ion-item>
               <ion-label position="stacked">Fecha</ion-label>
               <ion-datetime 
                 [value]="currentDate" 
@@ -20,12 +28,21 @@
               </ion-datetime>
             </ion-item>
             <ion-item>
-              <ion-label position="stacked">Horario</ion-label>
+              <ion-label position="stacked">Hora de inicio</ion-label>
               <ion-select 
-                placeholdAer="Seleccione un horario" 
+                placeholder="Seleccione un horario" 
                 interface="popover" 
                 [(ngModel)]="cita.hasieraOrdua"
-                (ionChange)="cambioHora($event)">
+                (ionChange)="cambioHoraInicio($event)">
+                <ion-select-option *ngFor="let hour of availableHours" [value]="hour">{{ hour }}</ion-select-option>
+              </ion-select>
+            </ion-item>
+            <ion-item>
+              <ion-label position="stacked">Hora de finalización</ion-label>
+              <ion-select 
+                placeholder="Seleccione una hora" 
+                interface="popover" 
+                [(ngModel)]="cita.amaieraOrdua">
                 <ion-select-option *ngFor="let hour of availableHours" [value]="hour">{{ hour }}</ion-select-option>
               </ion-select>
             </ion-item>
