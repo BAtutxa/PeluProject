@@ -47,7 +47,7 @@ export class AgendaPage implements OnInit {
   }
 
   agregarCita(nuevaCita: any) {
-    console.log('Cita recibida:', nuevaCita);  // Verificar si se recibe correctamente
+    console.log('Cita recibida:', nuevaCita);  
     this.services.push({
       cliente: nuevaCita.izena,
 
