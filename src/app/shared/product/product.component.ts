@@ -8,14 +8,17 @@ import { HttpClient } from '@angular/common/http';
   styleUrls: ['./product.component.scss']
 })
 export class ProductComponent implements OnInit {
-  @Input() item: any = {};
+  @Input() item: any = {}; 
   @Input() isEditing: boolean = false;
-  categorias: any[] = [];  // Aquí se almacenarán las categorías
+  @Input() tipo: string = 'producto';  
+
+  categorias: any[] = [];  
 
   constructor(private modalCtrl: ModalController, private http: HttpClient) {}
 
   ngOnInit() {
-    this.loadCategorias(); // Cargar categorías cuando se abre el modal
+    this.loadCategorias();
+    console.log(`📌 Tipo recibido en modal: ${this.tipo}`); // Para depuración
   }
 
   closeModal() {
@@ -35,38 +38,45 @@ export class ProductComponent implements OnInit {
   }
 
   saveItem() {
-    if (!this.item.nombre || !this.item.kategoria || !this.item.marka || this.item.stock < 0) {
-      alert("Por favor, complete todos los campos requeridos.");
-      return;
+    let data: any = {};
+
+    if (this.tipo === 'producto') {
+      data = {
+        izena: this.item.nombre,
+        deskribapena: this.item.descripcion || '',
+        kategoriak: this.item.kategoria ? { id: this.item.kategoria } : null,
+        marka: this.item.marka,
+        stock: this.item.stock ?? 0,
+        stockAlerta: this.item.stockAlerta ?? 0
+      };
+    } else if (this.tipo === 'material') {
+      data = {
+        etiketa: this.item.etiketa,
+        izena: this.item.izena,
+        kategoriak: this.item.kategoria ? { id: this.item.kategoria } : null
+      };
     }
 
-    const producto = {
-      izena: this.item.nombre,
-      deskribapena: this.item.descripcion || "",
-      kategoriak: { id: this.item.kategoria },  // Enviar solo el ID de la categoría
-      marka: this.item.marka,
-      stock: this.item.stock
-      
-    };
+    const url = this.tipo === 'producto' ? 'http://localhost:8080/produktuak' : 'http://localhost:8080/materialak';
 
     if (this.isEditing) {
-      this.http.put(`http://localhost:8080/produktuak/${this.item.id}`, producto).subscribe({
-        next: () => {
-          console.log("✅ Producto editado correctamente.");
-          this.modalCtrl.dismiss(true);
+      this.http.patch(`${url}/${this.item.id}`, data).subscribe({
+        next: (updatedItem) => {
+          console.log(`✅ ${this.tipo} actualizado correctamente.`, updatedItem);
+          this.modalCtrl.dismiss(updatedItem);
         },
         error: (err) => {
-          console.error("❌ Error al editar producto:", err);
+          console.error(`❌ Error al actualizar ${this.tipo}:`, err);
         }
       });
     } else {
-      this.http.post(`http://localhost:8080/produktuak`, producto).subscribe({
-        next: () => {
-          console.log("✅ Producto añadido correctamente.");
-          this.modalCtrl.dismiss(true);
+      this.http.post(url, data).subscribe({
+        next: (newItem) => {
+          console.log(`✅ ${this.tipo} añadido correctamente.`, newItem);
+          this.modalCtrl.dismiss(newItem);
         },
         error: (err) => {
-          console.error("❌ Error al añadir producto:", err);
+          console.error(`❌ Error al añadir ${this.tipo}:`, err);
         }
       });
     }

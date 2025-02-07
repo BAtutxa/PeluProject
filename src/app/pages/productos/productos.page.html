@@ -4,43 +4,85 @@
 
   <ion-content class="full-height">
     <app-nav-bar></app-nav-bar>
-  
-    <div class="tab-container">
-    <ion-tabs>
-      <ion-tab-bar slot="t">
-        <ion-tab-button tab="productos">
-        </ion-tab-button>
-        <ion-tab-button tab="materiales">
-        </ion-tab-button>
-      </ion-tab-bar>
-    </ion-tabs>
 
-    <ion-segment [(ngModel)]="selectedTab">
-      <ion-segment-button value="productos">Productos</ion-segment-button>
-      <ion-segment-button value="materiales">Materiales</ion-segment-button>
-    </ion-segment>
-    
-    <div *ngIf="selectedTab === 'productos'">
-      <ion-list>
-        <ion-item *ngFor="let producto of productos">
-          <ion-label>{{ producto.nombre }}</ion-label>
-          <ion-button color="primary" (click)="openModal('producto', producto)">Editar</ion-button>
-          <ion-button color="danger" (click)="deleteItem('producto', producto.id)">Eliminar</ion-button>
-        </ion-item>
-      </ion-list>
-      <ion-button expand="full" (click)="openModal('producto')">Añadir Producto</ion-button>
+    <div class="tab-container">
+      <!-- Segmento de productos/materiales -->
+      <ion-segment [(ngModel)]="selectedTab" (ionChange)="filterItems()" class="segment-custom">
+        <ion-segment-button value="productos">Productos</ion-segment-button>
+        <ion-segment-button value="materiales">Materiales</ion-segment-button>
+      </ion-segment>
+
+      <!-- Barra de búsqueda -->
+      <ion-searchbar [(ngModel)]="searchTerm" (ionInput)="filterItems()" placeholder="Buscar..."
+        class="searchbar-custom">
+      </ion-searchbar>
+
+      <!-- Botón flotante para agregar (FAB) -->
+      <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+        <ion-fab-button color="primary" *ngIf="selectedTab === 'productos'" (click)="openModal('producto')">
+          <ion-icon name="add-outline"></ion-icon>
+        </ion-fab-button>
+        <ion-fab-button color="primary" *ngIf="selectedTab === 'materiales'" (click)="openModal('material')">
+          <ion-icon name="add-outline"></ion-icon>
+        </ion-fab-button>
+      </ion-fab>
+
+      <!-- TAB: PRODUCTOS -->
+      <div *ngIf="selectedTab === 'productos'">
+        <ion-list>
+          <ion-card *ngFor="let producto of filteredProductos" class="item-card">
+            <ion-card-header>
+              <ion-card-title>{{ producto.nombre }}</ion-card-title>
+              <ion-card-subtitle>{{ producto.categoria }}</ion-card-subtitle>
+            </ion-card-header>
+            <ion-card-content>
+              <ion-grid>
+                <ion-row>
+                  <ion-col size="6"><strong>Marca:</strong> {{ producto.marca }}</ion-col>
+                  <ion-col size="6"><strong>Descripción:</strong> {{ producto.descripcion || 'Sin descripción' }}</ion-col>
+                </ion-row>
+                <ion-row>
+                  <ion-col size="6"><strong>Stock Alerta:</strong> {{ producto.stockAlerta }} unidades</ion-col>
+                  <ion-col size="6"><strong>Stock:</strong> {{ producto.stock }} unidades</ion-col>
+                </ion-row>
+              </ion-grid>
+            </ion-card-content>
+            <div class="button-container">
+              <ion-button fill="solid" color="primary" (click)="openModal('producto', producto)">
+                <ion-icon name="create-outline"></ion-icon> Editar
+              </ion-button>
+              <ion-button fill="solid" color="danger" (click)="deleteItem('producto', producto.id)">
+                <ion-icon name="trash-outline"></ion-icon> Eliminar
+              </ion-button>
+            </div>
+          </ion-card>
+        </ion-list>
+      </div>
+
+      <!-- TAB: MATERIALES -->
+<div *ngIf="selectedTab === 'materiales'">
+  <ion-list>
+    <ion-card *ngFor="let material of filteredMateriales" class="item-card">
+      <ion-card-header>
+        <ion-card-title>{{ material.nombre }}</ion-card-title>
+        <ion-card-subtitle>{{ material.categoria }}</ion-card-subtitle>
+      </ion-card-header>
+      <ion-card-content>
+        <p><strong>Etiqueta:</strong> {{ material.etiketa }}</p>
+        <p><strong>Fecha Creación:</strong> {{ material.sortzeData || 'No disponible' }}</p>
+        <p><strong>Última Modificación:</strong> {{ material.eguneratzeData || 'No disponible' }}</p>
+      </ion-card-content>
+      <div class="button-container">
+        <ion-button fill="solid" color="primary" (click)="openModal('material', material)">
+          <ion-icon name="create-outline"></ion-icon> Editar
+        </ion-button>
+        <ion-button fill="solid" color="danger" (click)="deleteItem('material', material.id)">
+          <ion-icon name="trash-outline"></ion-icon> Eliminar
+        </ion-button>
+      </div>
+    </ion-card>
+  </ion-list>
+</div>
     </div>
-    
-    <div *ngIf="selectedTab === 'materiales'">
-      <ion-list>
-        <ion-item *ngFor="let material of materiales">
-          <ion-label>{{ material.nombre }}</ion-label>
-          <ion-button color="primary" (click)="openModal('material', material)">Editar</ion-button>
-          <ion-button color="danger" (click)="deleteItem('material', material.id)">Eliminar</ion-button>
-        </ion-item>
-      </ion-list>
-      <ion-button expand="full" (click)="openModal('material')">Añadir Material</ion-button>
-    </div>
-  </div>
   </ion-content>
 </ion-app>
