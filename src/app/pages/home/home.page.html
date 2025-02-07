@@ -1,87 +1,38 @@
 <ion-app>
-    <app-barra-navegacion></app-barra-navegacion>
-  <ion-content>
+  <app-barra-navegacion></app-barra-navegacion>
+
+  <ion-content class="full-height">
     <app-nav-bar></app-nav-bar>
+    <app-barra-control></app-barra-control>
 
-
-    <app-barra-control></app-barra-control>  <!-- BARRA CONTROLADOR -->
-
-     
-    <div style="display: flex; justify-content: center; padding: 20px; flex-wrap: wrap;">
-
-      <div style="text-align: center; margin: 10px;">
-        <img src="assets/fotos/descarga-_4_.png" alt="Integrante 1" style="border-radius: 50%; width: 80px; height: 80px;">
-        <p style="margin: 5px 0;">Asier Bañuelos</p>
-      </div>
-      <div style="text-align: center; margin: 10px;">
-        <img src="assets/fotos/descarga-_4_.png" alt="Integrante 2" style="border-radius: 50%; width: 80px; height: 80px;">
-        <p style="margin: 5px 0;">Beñat Herrera</p>
-      </div>
-      <div style="text-align: center; margin: 10px;">
-        <img src="assets/fotos/descarga-_4_.png" alt="Integrante 3" style="border-radius: 50%; width: 80px; height: 80px;">
-        <p style="margin: 5px 0;">Asier Nicolas</p>
-      </div>
-    </div>
-    <ion-grid>
+    <ion-grid class="full-grid">
       <ion-row>
-        <!-- CARTA DE AGENDAS -->
-        <ion-col size-md="7" size="12">
-          <ion-card>
+        <ion-col size-md="11" size="12">
+          <ion-card class="full-card">
             <ion-card-header class="center">
               <ion-card-title>Agenda del día</ion-card-title>
             </ion-card-header>
-            <ion-row>
-              <ion-col size-md="4" size="12">
-                <app-box-list></app-box-list>
-              </ion-col>
-              <ion-col size-md="4" size="12">
-                <app-box-list></app-box-list>
-              </ion-col>
-              <ion-col size-md="4" size="12">
-                <app-box-list></app-box-list>         <!-- COMPONENTE INDIVIDUAL (BOX-LIST) -->
-              </ion-col>
-            </ion-row>
-            <ion-row>
-              <ion-col size-md="4" size="12">
-                <app-box-list></app-box-list>
-              </ion-col>
-              <ion-col size-md="4" size="12">
-                <app-box-list></app-box-list>
-              </ion-col>
-              <ion-col size-md="4" size="12">
-                <app-box-list></app-box-list>
-              </ion-col>
-            </ion-row>
-          </ion-card>
-        </ion-col>
-    
-        <!-- CARTA CONTROL MATERIAL -->
-        <ion-col size-md="5" size="12">
-          <ion-card>
-            <ion-card-header class="center">
-              <ion-card-title>Control Material</ion-card-title>
-            </ion-card-header>
-            <ion-row class="header-row">
-              <ion-col size="4" class="header-cell">Alumno</ion-col>
-              <ion-col size="4" class="header-cell">Material</ion-col>
-              <ion-col size="4" class="header-cell">Estado</ion-col>
-            </ion-row>
-            <ion-row>
-              <ion-col size="4" style="text-align: center; padding: 8px;">Asier Bañuelos</ion-col>
-              <ion-col size="4" style="text-align: center; padding: 8px;">Sercador</ion-col>
-              <ion-col size="4" style="text-align: center; padding: 8px;">Devuelto</ion-col>
-            </ion-row>
 
-            <ion-row>
-              <ion-col size="4" style="text-align: center; padding: 8px;">Beñat Herrera</ion-col>
-              <ion-col size="4" style="text-align: center; padding: 8px;">Champú</ion-col>
-              <ion-col size="4" style="text-align: center; padding: 8px;">Pendiente</ion-col>
-            </ion-row>
+            <div class="agenda-container">
+              <!-- Columna de horas independiente -->
+              <div class="hour-column">
+                <div *ngFor="let hour of hours" class="hour-item">
+                  {{ hour }}
+                </div>
+              </div>
+
+              <!-- Contenedor de agendas -->
+              <div class="agenda-column">
+                <ion-row>
+                  <ion-col size-md="4" size="12" *ngFor="let cita of citas">
+                    <app-box-list [nombre]="cita.izena" (click)="abrirInfoCita(cita)"></app-box-list>
+                  </ion-col>
+                </ion-row>
+              </div>
+            </div>
           </ion-card>
         </ion-col>
       </ion-row>
     </ion-grid>
-    
   </ion-content>
 </ion-app>
-

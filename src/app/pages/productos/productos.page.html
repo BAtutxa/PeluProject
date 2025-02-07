@@ -1,0 +1,46 @@
+<ion-app>
+  <app-barra-navegacion></app-barra-navegacion>
+  <app-nav-bar></app-nav-bar>
+
+  <ion-content class="full-height">
+    <app-nav-bar></app-nav-bar>
+  
+    <div class="tab-container">
+    <ion-tabs>
+      <ion-tab-bar slot="t">
+        <ion-tab-button tab="productos">
+        </ion-tab-button>
+        <ion-tab-button tab="materiales">
+        </ion-tab-button>
+      </ion-tab-bar>
+    </ion-tabs>
+
+    <ion-segment [(ngModel)]="selectedTab">
+      <ion-segment-button value="productos">Productos</ion-segment-button>
+      <ion-segment-button value="materiales">Materiales</ion-segment-button>
+    </ion-segment>
+    
+    <div *ngIf="selectedTab === 'productos'">
+      <ion-list>
+        <ion-item *ngFor="let producto of productos">
+          <ion-label>{{ producto.nombre }}</ion-label>
+          <ion-button color="primary" (click)="openModal('producto', producto)">Editar</ion-button>
+          <ion-button color="danger" (click)="deleteItem('producto', producto.id)">Eliminar</ion-button>
+        </ion-item>
+      </ion-list>
+      <ion-button expand="full" (click)="openModal('producto')">Añadir Producto</ion-button>
+    </div>
+    
+    <div *ngIf="selectedTab === 'materiales'">
+      <ion-list>
+        <ion-item *ngFor="let material of materiales">
+          <ion-label>{{ material.nombre }}</ion-label>
+          <ion-button color="primary" (click)="openModal('material', material)">Editar</ion-button>
+          <ion-button color="danger" (click)="deleteItem('material', material.id)">Eliminar</ion-button>
+        </ion-item>
+      </ion-list>
+      <ion-button expand="full" (click)="openModal('material')">Añadir Material</ion-button>
+    </div>
+  </div>
+  </ion-content>
+</ion-app>

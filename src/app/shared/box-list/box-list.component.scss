@@ -1,62 +1,31 @@
+.waiting-card {
+  --background: #f4f4f4;  // Color de fondo inicial
+  width: 80%;
+  text-align: center;
+  transition: all 0.3s ease-in-out;
+  border-radius: 8px;
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+  color: black;
 
-.agenda {
-    display: flex;
-    gap: 10px;
-    flex-wrap: wrap;
+  &:hover {
+    transform: translateY(-5px);  // Elevar botón al hacer hover
+    background-color: #e0e0e0 !important;  // Cambio de color de fondo
+    box-shadow: 0px 6px 15px rgba(0, 0, 0, 0.2);  // Sombra más pronunciada
   }
-  
-  .waiting-card {
-    position: relative;
-    width: 300px;
-    height: auto;
-    background-color: #f8f9fa;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    border-radius: 8px;
-    padding: 10px;
-  }
-  
-  .ribbon {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    background-color: #007bff;
-    color: white;
-    padding: 5px;
-    font-size: 12px;
-    font-weight: bold;
-    border-radius: 4px;
-  }
-  
-  .details,
-  .status {
-    display: flex;
-    align-items: center;
-    font-size: 14px;
-    margin: 5px 0;
-  }
-  
-  .details ion-icon,
-  .status ion-icon {
-    margin-right: 5px;
-  }
-  
-  .employee-card {
-    text-align: center;
-    background-color: #ffffff;
-    padding: 10px;
-    border-radius: 8px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  }
-  
-  .employee-card img {
-    width: 80px;
-    height: 80px;
-    border-radius: 50%;
-    margin-bottom: 10px;
-  }
-  
-  .employee-card p {
-    margin: 0;
-    font-size: 16px;
-    font-weight: bold;
-  }
+}
+.pending {
+  --background: red;
+  color: white;
+}
+
+.in-progress {
+  --background: orange;
+  color: white;
+}
+
+.completed {
+  --background: green;
+  color: white;
+}
+
+

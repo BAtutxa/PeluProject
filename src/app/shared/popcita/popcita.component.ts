@@ -11,26 +11,27 @@ export class PopcitaComponent {
 
   currentDate: string = new Date().toISOString();
   availableHours: string[] = [
-    '10:00 AM', '10:30 AM',
-    '11:00 AM', '11:30 AM',
-    '12:00 AM', '12:30 PM',
-    '13:00 PM', '13:30 PM',
-    '14:00 PM'
+    '10:00', '10:30',
+    '11:00', '11:30',
+    '12:00', '12:30',
+    '13:00', '13:30',
+    '14:00'
   ];
 
+  // Cita con valores predeterminados para evitar errores en el backend
   cita = {
     izena: '',
     telefonoa: '',
-    etxekoa: 'E',
+    etxekoa: 'E', // Valor por defecto
     data: '',
     hasieraOrdua: '',
-    amaieraOrdua: '',
+    amaieraOrdua: null, // Permitimos null como valor predeterminado
     deskribapena: '',
-    eserlekua: 0, // Asiento predeterminado
+    eserlekua: 0, // Valor por defecto
+    prezioTotala: 0.0, // Valor por defecto
+    sortzeData: new Date().toISOString(),
     hasieraOrduaErreala: null,
-    amaieraOrduaErreala: null,
-    prezioTotala: 0.0, // Precio predeterminado
-    sortzeData: ''
+    amaieraOrduaErreala: null
   };
 
   constructor(private modalCtrl: ModalController) {}
@@ -44,7 +45,7 @@ export class PopcitaComponent {
   }
 
   cambioHoraFinal(event: any) {
-    this.cita.amaieraOrdua = event.detail.value;
+    this.cita.amaieraOrdua = event.detail.value || null;
   }
 
   toggleEtxekoa(isChecked: boolean) {
@@ -70,19 +71,26 @@ export class PopcitaComponent {
       return;
     }
 
+    // Validación del teléfono (número de 9 dígitos)
+    if (this.cita.telefonoa.length !== 9 || isNaN(Number(this.cita.telefonoa))) {
+      alert('Ingrese un número de teléfono válido de 9 dígitos.');
+      return;
+    }
+
+    // Enviar la cita con todos los campos, asegurando que no haya valores nulos inesperados
     const citaFormateada = {
-      izena: this.cita.izena,
-      telefonoa: this.cita.telefonoa || '', // Valor por defecto si está vacío
-      etxekoa: this.cita.etxekoa,
+      izena: this.cita.izena.trim(),
+      telefonoa: this.cita.telefonoa.trim(),
+      etxekoa: this.cita.etxekoa || 'E',
       data: this.cita.data,
       hasieraOrdua: this.cita.hasieraOrdua,
-      amaieraOrdua: this.cita.amaieraOrdua || null,  // Permitir valor nulo
-      deskribapena: this.cita.deskribapena.trim() || '',
-      eserlekua: this.cita.eserlekua,
+      amaieraOrdua: this.cita.amaieraOrdua || null,
+      deskribapena: this.cita.deskribapena ? this.cita.deskribapena.trim() : '',
+      eserlekua: this.cita.eserlekua || 0,
+      prezioTotala: this.cita.prezioTotala || 0.0,
+      sortzeData: this.cita.sortzeData || new Date().toISOString(),
       hasieraOrduaErreala: null,
-      amaieraOrduaErreala: null,
-      prezioTotala: this.cita.prezioTotala,
-      sortzeData: new Date().toISOString() // Fecha actual con hora
+      amaieraOrduaErreala: null
     };
 
     console.log('Cita a enviar:', citaFormateada);
@@ -101,13 +109,13 @@ export class PopcitaComponent {
       etxekoa: 'E',
       data: '',
       hasieraOrdua: '',
-      amaieraOrdua: '',
+      amaieraOrdua: null,
       deskribapena: '',
       eserlekua: 0,
-      hasieraOrduaErreala: null,
-      amaieraOrduaErreala: null,
       prezioTotala: 0.0,
-      sortzeData: ''
+      sortzeData: new Date().toISOString(),
+      hasieraOrduaErreala: null,
+      amaieraOrduaErreala: null
     };
   }
 }

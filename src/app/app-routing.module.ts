@@ -12,13 +12,8 @@ const routes: Routes = [
     pathMatch: 'full'
   },
   {
-    
     path: 'home',
     loadChildren: () => import('./pages/home/home.module').then( m => m.HomePageModule)
-  },
-  {
-    path: 'agenda',
-    loadChildren: () => import('./pages/agenda/agenda.module').then( m => m.AgendaPageModule)
   },
   {
     path: 'ficha',
@@ -32,6 +27,25 @@ const routes: Routes = [
     path: 'control-stock',
     loadChildren: () => import('./pages/control-stock/control-stock.module').then( m => m.ControlStockPageModule)
   },
+  {
+    path: 'productos',
+    loadChildren: () => import('./pages/productos/productos.module').then( m => m.ProductosPageModule)
+  },
+  {
+    path: 'servicios',
+    loadChildren: () => import('./pages/servicios/servicios.module').then( m => m.ServiciosPageModule)
+  },
+  {
+    path: 'stock',
+    loadChildren: () => import('./pages/stock/stock.module').then( m => m.StockPageModule)
+  },
+  {
+    path: 'tickets',
+    loadChildren: () => import('./pages/tickets/tickets.module').then( m => m.TicketsPageModule)
+  },
+
+
+
 
 
 ];

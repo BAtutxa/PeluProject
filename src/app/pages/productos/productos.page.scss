@@ -1,0 +1,7 @@
+.tab-container{
+      /* Ajusta el ancho del grid si hay un menú lateral solo a la izquierda */
+  @media (min-width: 768px) { /* Pantallas medianas en adelante */
+    margin-left: var(--menu-width, 250px); /* Espacio para el menú lateral */
+    max-width: calc(100% - var(--menu-width, 250px)); /* Resta solo el ancho del menú lateral */
+  }
+}

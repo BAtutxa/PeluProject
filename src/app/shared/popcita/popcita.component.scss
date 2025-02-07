@@ -1,11 +1,4 @@
-.center-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 70%; /* Ocupa toda la altura del contenido */
-    margin-top: 110px;
-  }
-  
+
   ion-grid {
     width: 80%; 
     max-width: 70%; 
@@ -20,6 +13,12 @@
     font-weight: bold;
     text-align: center; 
   }
+  .button-container {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;  
+  }
+  
   
 
 

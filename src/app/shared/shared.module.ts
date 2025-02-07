@@ -9,6 +9,8 @@ import { BarraControlComponent } from '../shared/barra-control/barra-control.com
 import { PopcitaComponent } from '../shared/popcita/popcita.component';
 import { TablaBezeroComponent } from '../shared/tabla-bezero/tabla-bezero.component';
 import { FormsModule } from '@angular/forms';
+import { InfoCitaComponent } from '../shared/info-cita/info-cita.component';
+import { ProductComponent } from './product/product.component';
 
 
 @NgModule({
@@ -18,7 +20,9 @@ import { FormsModule } from '@angular/forms';
     BoxListComponent, 
     BarraControlComponent,
     PopcitaComponent,
-    TablaBezeroComponent
+    TablaBezeroComponent,
+    InfoCitaComponent,
+    ProductComponent
     
   ],
   imports: [
@@ -34,7 +38,10 @@ import { FormsModule } from '@angular/forms';
     BoxListComponent,
     BarraControlComponent,
     PopcitaComponent,
-    TablaBezeroComponent
+    TablaBezeroComponent,
+    InfoCitaComponent,
+    ProductComponent
+
     
   ]
 })
