@@ -1,17 +1,19 @@
-import { BarraNavegacionComponent } from '../shared/barra-navegacion/barra-navegacion.component';
+import { BarraNavegacionComponent } from './Header-components/barra-navegacion/barra-navegacion.component';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { IonicModule } from '@ionic/angular';
-import { NavBarComponent } from '../shared/nav-bar/nav-bar.component';
+import { NavBarComponent } from './Header-components/nav-bar/nav-bar.component';
 import { RouterModule } from '@angular/router'; 
-import { BoxListComponent } from '../shared/box-list/box-list.component';
-import { BarraControlComponent } from '../shared/barra-control/barra-control.component';
-import { PopcitaComponent } from '../shared/popcita/popcita.component';
+import { BoxListComponent } from './Agenda/box-list/box-list.component';
+import { BarraControlComponent } from './Header-components/barra-control/barra-control.component';
+import { PopcitaComponent } from './modals/popcita/popcita.component';
 import { TablaBezeroComponent } from '../shared/tabla-bezero/tabla-bezero.component';
 import { FormsModule } from '@angular/forms';
-import { InfoCitaComponent } from '../shared/info-cita/info-cita.component';
-import { ProductComponent } from './product/product.component';
-
+import { InfoCitaComponent } from './Agenda/info-cita/info-cita.component';
+import { ProductComponent } from './modals/product/product.component';
+import { ServiceModalComponent } from './modals/service-modal/service-modal.component';
+import { GrupoModalComponent } from './modals/grupo-modal/grupo-modal.component';
+import { TrabajadorModalComponent } from './modals/trabajadores-modal/trabajadores-modal.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +24,10 @@ import { ProductComponent } from './product/product.component';
     PopcitaComponent,
     TablaBezeroComponent,
     InfoCitaComponent,
-    ProductComponent
+    ProductComponent,
+    ServiceModalComponent,
+    GrupoModalComponent,
+    TrabajadorModalComponent
     
   ],
   imports: [
@@ -40,7 +45,10 @@ import { ProductComponent } from './product/product.component';
     PopcitaComponent,
     TablaBezeroComponent,
     InfoCitaComponent,
-    ProductComponent
+    ProductComponent,
+    ServiceModalComponent,
+    GrupoModalComponent,
+    TrabajadorModalComponent
 
     
   ]

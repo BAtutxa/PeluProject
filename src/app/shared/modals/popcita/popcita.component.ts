@@ -1,5 +1,7 @@
 import { Component, EventEmitter, Output } from '@angular/core';
 import { ModalController } from '@ionic/angular';
+import { HttpClient } from '@angular/common/http';
+
 
 @Component({
   selector: 'app-popcita',
@@ -8,6 +10,8 @@ import { ModalController } from '@ionic/angular';
 })
 export class PopcitaComponent {
   @Output() citaAñadida = new EventEmitter<any>();
+
+  servicios: any[] = []; // Aquí se almacenarán los servicios obtenidos desde la API
 
   currentDate: string = new Date().toISOString();
   availableHours: string[] = [
@@ -34,8 +38,11 @@ export class PopcitaComponent {
     amaieraOrduaErreala: null
   };
 
-  constructor(private modalCtrl: ModalController) {}
+  constructor(private modalCtrl: ModalController ,private http: HttpClient) {}
 
+  ngOnInit() {
+    this.loadServicios(); // Cargar servicios al iniciar
+  }
   cambiarFecha(event: any) {
     this.cita.data = event.detail.value.split('T')[0]; // Formato YYYY-MM-DD
   }
@@ -52,6 +59,19 @@ export class PopcitaComponent {
     this.cita.etxekoa = isChecked ? 'E' : 'K';
   }
 
+  // Cargar los servicios desde la API
+  loadServicios() {
+    this.http.get<any[]>('http://localhost:8080/zerbitzuak').subscribe({
+      next: (data) => {
+        console.log("✅ Servicios cargados desde la API:", data);
+        this.servicios = data.map(s => s.izena); // Asumimos que `izena` es el nombre del servicio
+      },
+      error: (err) => {
+        console.error("❌ Error al cargar servicios:", err);
+      }
+    });
+  }
+
   toggleService(service: string, isChecked: boolean) {
     if (isChecked) {
       if (!this.cita.deskribapena.includes(service)) {
@@ -64,6 +84,7 @@ export class PopcitaComponent {
       this.cita.deskribapena = servicios.join(', ');
     }
   }
+
 
   anadirCita() {
     if (!this.cita.izena || !this.cita.telefonoa || !this.cita.data || !this.cita.hasieraOrdua) {

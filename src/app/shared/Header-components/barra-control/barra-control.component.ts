@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Output } from '@angular/core';
 import { ModalController } from '@ionic/angular';
-import { PopcitaComponent } from '../popcita/popcita.component';
+import { PopcitaComponent } from '../../modals/popcita/popcita.component';
 
 
 @Component({

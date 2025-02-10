@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
-import { ProductComponent } from 'src/app/shared/product/product.component';
+import { ProductComponent } from 'src/app/shared/modals/product/product.component';
 import { HttpClient } from '@angular/common/http';
 
 @Component({

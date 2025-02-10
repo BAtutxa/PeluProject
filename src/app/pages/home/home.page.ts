@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { HitzorduakService } from 'src/app/service/hitzorduak.service';
-import { InfoCitaComponent } from 'src/app/shared/info-cita/info-cita.component';
+import { InfoCitaComponent } from 'src/app/shared/Agenda/info-cita/info-cita.component';
 
 @Component({
   selector: 'app-home',
