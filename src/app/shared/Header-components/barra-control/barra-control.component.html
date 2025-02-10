@@ -1,43 +1,40 @@
 <div class="barracontrol">
+  <!-- Grupo Asignado Automáticamente (Deshabilitado) -->
   <ion-select
-    placeholder="Grupo 2" 
+    [(ngModel)]="grupoSeleccionado"
     interface="popover"
-    style="margin-right: 10px; color: white;"
     disabled
-  >  <!-- Aqui aparecera el grupo que esta trabajando actualmente -->
-
-    <ion-select-option>Grupo 1</ion-select-option>
-    <ion-select-option>Grupo 2</ion-select-option>
-    <ion-select-option>Grupo 3</ion-select-option>
-    <ion-select-option>Grupo 4</ion-select-option>
-    <ion-select-option>Grupo 5</ion-select-option>
+    style="margin-right: 10px; color: white;"
+  >
+    <ion-select-option *ngIf="grupoSeleccionado" [value]="grupoSeleccionado.kodea">
+      {{ grupoSeleccionado.izena }}
+    </ion-select-option>
+    <ion-select-option *ngIf="!grupoSeleccionado">Sin grupo asignado</ion-select-option>
   </ion-select>
 
+  <!-- Selector de Trabajadores por Grupo -->
   <div style="display: flex; align-items: center; margin-right: 10px;">
     <ion-select
-      placeholder="Trabajadores"
+      [(ngModel)]="trabajadorSeleccionado"
       interface="popover"
-      style="margin-right: 10px; color:white;"
-    >  <!-- Configurar para que pueda eliminar alguno por si no viene -->
-
-      <ion-select-option>Asier Bañuelos</ion-select-option>
-      <ion-select-option>Beñat Herrera</ion-select-option>
-      <ion-select-option>Asier Nicolas</ion-select-option>
+      style="margin-right: 10px; color: white;"
+    >
+      <ion-select-option *ngFor="let trabajador of trabajadoresFiltrados" [value]="trabajador.id">
+        {{ trabajador.izena }} {{ trabajador.abizenak }}
+      </ion-select-option>
     </ion-select>
   </div>
 
-<!-- Botones de navegación de fechas -->
-<div style="display: flex; align-items: center; margin-right: 10px;">
-  <ion-button fill="clear" color="light" size="small" (click)="retrocederFecha()">
-    <ion-icon slot="icon-only" name="chevron-back"></ion-icon>
-  </ion-button>
-  <ion-label style="color: white; font-size: 16px;">{{ fechaActual }}</ion-label> 
-  <ion-button fill="clear" color="light" size="small" (click)="avanzarFecha()">
-    <ion-icon slot="icon-only" name="chevron-forward"></ion-icon>
-  </ion-button>
+  <!-- Botones de navegación de fechas -->
+  <div style="display: flex; align-items: center; margin-right: 10px;">
+    <ion-button fill="clear" color="light" size="small" (click)="retrocederFecha()">
+      <ion-icon slot="icon-only" name="chevron-back"></ion-icon>
+    </ion-button>
+    <ion-label style="color: white; font-size: 16px;">{{ fechaActual }}</ion-label> 
+    <ion-button fill="clear" color="light" size="small" (click)="avanzarFecha()">
+      <ion-icon slot="icon-only" name="chevron-forward"></ion-icon>
+    </ion-button>
+  </div>
+
+  <ion-button color="primary" size="small" shape="round" (click)="abrirPopup()">Añadir Cita</ion-button>
 </div>
-
-<ion-button color="primary" size="small" shape="round" (click)="abrirPopup()">Añadir Cita</ion-button>
-</div>
-
-
