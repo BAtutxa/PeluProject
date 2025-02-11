@@ -91,14 +91,14 @@ export class PopcitaComponent {
       alert('Por favor, complete todos los campos obligatorios.');
       return;
     }
-
+  
     // Validación del teléfono (número de 9 dígitos)
     if (this.cita.telefonoa.length !== 9 || isNaN(Number(this.cita.telefonoa))) {
       alert('Ingrese un número de teléfono válido de 9 dígitos.');
       return;
     }
-
-    // Enviar la cita con todos los campos, asegurando que no haya valores nulos inesperados
+  
+    // Formateamos los datos para asegurarnos de que no haya valores nulos inesperados
     const citaFormateada = {
       izena: this.cita.izena.trim(),
       telefonoa: this.cita.telefonoa.trim(),
@@ -109,15 +109,28 @@ export class PopcitaComponent {
       deskribapena: this.cita.deskribapena ? this.cita.deskribapena.trim() : '',
       eserlekua: this.cita.eserlekua || 0,
       prezioTotala: this.cita.prezioTotala || 0.0,
-      sortzeData: this.cita.sortzeData || new Date().toISOString(),
+      sortzeData: new Date().toISOString(),
       hasieraOrduaErreala: null,
       amaieraOrduaErreala: null
     };
-
-    console.log('Cita a enviar:', citaFormateada);
-    this.citaAñadida.emit(citaFormateada);
-    this.modalCtrl.dismiss(citaFormateada);
+  
+    console.log('📤 Enviando cita al backend:', citaFormateada);
+  
+    // Enviar la cita al backend
+    this.http.post('http://localhost:8080/api/hitzorduak', citaFormateada).subscribe({
+      next: (response) => {
+        console.log('✅ Cita creada correctamente:', response);
+        alert('Cita añadida correctamente.');
+        this.citaAñadida.emit(response); // Emitimos la cita para actualizar la agenda
+        this.modalCtrl.dismiss(response); // Cerramos el modal y enviamos la cita
+      },
+      error: (error) => {
+        console.error('❌ Error al añadir la cita:', error);
+        alert('Hubo un problema al guardar la cita.');
+      }
+    });
   }
+  
 
   cerrarModal() {
     this.modalCtrl.dismiss(); // Cerrar el modal sin enviar datos

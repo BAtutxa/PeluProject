@@ -76,7 +76,6 @@ export class ServiciosPage implements OnInit {
 
     this.http.request(method, url, { body: servicio }).subscribe({
       next: (updatedService: any) => {
-        console.log(`✅ Servicio ${isPartialUpdate ? 'parcialmente' : 'completamente'} actualizado:`, updatedService);
         const index = this.servicios.findIndex(s => s.id === id);
         if (index !== -1) {
           this.servicios[index] = updatedService; // Actualiza en la lista local

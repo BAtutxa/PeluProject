@@ -38,6 +38,9 @@ export class HitzorduakService {
       hasieraOrduaErreala: hasieraOrduaErreala,
     });
   }
+  getHitzorduakByFecha(fecha: string): Observable<any[]> {
+    return this.http.get<any[]>(`${this.apiUrl}/fecha/${fecha}`);
+  }
 
   updateHoraFinalReal(id: number, amaieraOrduaErreala: string): Observable<any> {
     return this.http.patch(`${this.apiUrl}/${id}/actualizar-hora-final`, {

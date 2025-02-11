@@ -131,7 +131,6 @@ export class ProductosPage implements OnInit {
     });
   }
 
-  // 🔍 Método para filtrar productos y materiales por nombre
   filterItems() {
     const searchTermLower = this.searchTerm.toLowerCase();
     
