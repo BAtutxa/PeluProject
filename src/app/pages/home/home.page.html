@@ -3,8 +3,6 @@
 
   <ion-content class="full-height">
     <app-nav-bar></app-nav-bar>
-
-    <!-- Barra de control que emite citas -->
     <app-barra-control (citasActualizadas)="actualizarCitas($event)"></app-barra-control>
 
     <ion-grid class="full-grid">
@@ -16,22 +14,35 @@
             </ion-card-header>
 
             <div class="agenda-container">
-              <!-- Columna de horas -->
+              <!-- Columna de Horas -->
               <div class="hour-column">
                 <div *ngFor="let hour of hours" class="hour-item">
                   {{ hour }}
                 </div>
               </div>
 
-              <!-- Contenedor de citas -->
+              <!-- Contenedor de Citas -->
               <div class="agenda-column">
-                <ion-row *ngFor="let hour of hours">
-                  <ion-col size-md="4" size="12" *ngFor="let cita of citasPorHora.get(hour) || []">
-                    <app-box-list [nombre]="cita.izena" (click)="abrirInfoCita(cita)"></app-box-list>
-                  </ion-col>
-                </ion-row>
+                <div class="citas-container">
+                  <div *ngFor="let cita of citas"
+                    class="cita-box"
+                    [ngStyle]="{
+                      'top': calcularPosicion(cita.hasieraOrdua),
+                      'height': calcularAltura(cita.duracion),
+                      'left': calcularColumna(cita)
+                    }"
+                    (click)="abrirInfoCita(cita)">
+
+                      <ion-card-content class="cita-text">
+                        <strong style="font-size: 22px; font-weight: 300; color: white">{{ cita.izena }}</strong><br>
+                        <span style=" color: aqua; font-weight: 300; ">{{ cita.deskribapena }}</span>
+                      </ion-card-content>
+
+                  </div>
+                </div>
               </div>
             </div>
+
           </ion-card>
         </ion-col>
       </ion-row>

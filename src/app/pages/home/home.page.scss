@@ -1,119 +1,83 @@
-    /* Asegura que el contenido ocupe toda la altura de la pantalla */
-    .full-height {
-      height: 100vh;
-      display: flex;
-      flex-direction: column;
-    }
+/* Estructura Base */
+.full-height {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
 
-    /* Ajuste del ion-grid para que ocupe todo el espacio */
-    .full-grid {
-      flex-grow: 1;
-      display: flex;
-      flex-direction: column;
-      width: 100%;
-      height: 100%;
-    }
+.full-grid {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+}
+/* Estilos base para la caja de citas */
+.cita-box {
+  position: absolute;
+  width: 200px;
+  text-align: center;
+  border-radius: 8px;
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+  font-weight: bold;
+  padding: 10px;
+  transition: all 0.3s ease-in-out;
+}
 
-    /* Contenedor principal con flex */
-    .agenda-container {
-      display: flex;
-      flex-direction: row;
-    }
 
-    /* Columna de horas con ancho fijo */
-    .hour-column {
-      width: 120px;  /* Ancho fijo para pantallas grandes */
-      padding: 8px;
-      font-weight: bold;
-      text-align: center;
-      border-right: 1px solid #ccc;
-    }
+.agenda-container {
+  display: flex;
+  flex-direction: row;
+}
 
-    /* Estilo para cada hora con más separación */
-    .hour-item {
-      font-size: 1rem; /* Tamaño de fuente adecuado para pantallas grandes */
-      text-align: center;
-      color: #333;
-      padding: 16px 0;  /* Aumentado para mayor separación */
-      margin-bottom: 12px; /* Más separación entre horas */
-      border-bottom: 1px solid #ddd; /* Separador más visible */
-    }
+/* Columna de Horas */
+.hour-column {
+  width: 120px;
+  padding: 8px;
+  font-weight: bold;
+  text-align: center;
+  border-right: 1px solid #ccc;
+}
 
-    /* Contenedor de las agendas */
-    .agenda-column {
-      flex-grow: 1; /* Ocupa el espacio restante */
-      display: flex;
-      flex-direction: column;
-    }
-    
+.hour-item {
+  font-size: 1rem;
+  text-align: center;
+  color: #333;
+  padding: 16px 0;
+  margin-bottom: 12px;
+  border-bottom: 1px solid #ddd;
+  height: 50px;
+}
 
-    /* Fila de la agenda para cada hora */
-    .agenda-row {
-      display: flex;
-      align-items: center;
-      border-bottom: 1px solid #e0e0e0;
-      padding: 10px 0;
-    }
 
-    /* Tarjetas ocupando todo el espacio disponible */
-    .full-card {
-      flex-grow: 1;
-      display: flex;
-      flex-direction: column;
-      height: 100%;
-      padding: 20px; /* Espaciado adecuado */
-      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-      border-radius: 8px;
-      background-color: #ffffff;
-    }
+/* Contenedor de Citas */
+.agenda-column {
+  flex-grow: 1;
+  position: relative;
+}
 
-    /* RESPONSIVIDAD */
+.citas-container {
+  position: relative;
+  height: 100%;
+}
 
-    /* Pantallas medianas (tablets) */
-    @media (max-width: 992px) {
-      .hour-column {
-        width: 100px;  /* Reducir el ancho en tablets */
-        padding: 6px;
-      }
+.cita-box {
+  position: absolute;
+  width: 200px;
+  background: #3c7fc7;
+  border-radius: 8px;
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+  padding: 8px;
+  text-align: center;
+  transition: all 0.3s ease-in-out;
+}
 
-      .hour-item {
-        font-size: 1rem; /* Reducir el tamaño de fuente */
-        padding: 12px 0;
-        margin-bottom: 8px;
-      }
+.cita-box:hover {
+  background-color: #e0e0e0;
+  transform: translateY(-5px);
+  box-shadow: 0px 6px 15px rgba(0, 0, 0, 0.2);
+}
 
-      .full-card {
-        padding: 15px;
-      }
-    }
-
-    /* Pantallas pequeñas (móviles) */
-    @media (max-width: 768px) {
-      .agenda-container {
-        flex-direction: column;
-      }
-
-      .hour-column {
-        width: 100%;
-        border-right: none;
-        border-bottom: 1px solid #ccc;
-      }
-
-      .hour-item {
-        font-size: 0.9rem; /* Reducir aún más la fuente */
-        padding: 8px 0;
-        margin-bottom: 5px;
-      }
-
-      .agenda-row {
-        flex-direction: column; /* Poner elementos uno debajo del otro */
-        padding: 5px 0;
-      }
-
-      .full-card {
-        padding: 10px;
-      }
-    }
 
 ion-grid {
 
