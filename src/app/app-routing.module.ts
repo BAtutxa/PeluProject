@@ -43,6 +43,11 @@ const routes: Routes = [
     path: 'tickets',
     loadChildren: () => import('./pages/tickets/tickets.module').then( m => m.TicketsPageModule)
   },
+  {
+    path: 'txandak',
+    loadChildren: () => import('./pages/txandak/txandak.module').then( m => m.TxandakPageModule)
+  },
+
 
 
 

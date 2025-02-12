@@ -1,0 +1,10 @@
+
+ion-list{
+    @media (min-width: 768px) { 
+        margin-left: var(--menu-width, 250px); 
+        max-width: calc(100% - var(--menu-width, 250px)); 
+
+}
+}
+
+  

@@ -20,7 +20,7 @@ export interface Cita {
   providedIn: 'root',
 })
 export class HitzorduakService {
-  private apiUrl = 'http://localhost:8080/api/hitzorduak';  // Asegúrate de que esta URL es correcta
+  private apiUrl = 'http://localhost:8080/api/hitzorduak';  
 
   constructor(private http: HttpClient) {}
 

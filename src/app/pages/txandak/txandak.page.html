@@ -1,0 +1,25 @@
+<ion-app>
+  <app-barra-navegacion></app-barra-navegacion>
+
+  <ion-content>
+    <app-nav-bar></app-nav-bar>
+  <app-nav-bar></app-nav-bar> <!-- Verifica que este componente existe -->
+  <ion-list *ngIf="txandakList.length > 0; else noData">
+    <ion-item *ngFor="let txanda of txandakList">
+      <ion-label>
+        <h2>Turno: {{ txanda.mota }}</h2>
+        <p>Fecha: {{ txanda.data }}</p>
+        <p>Empleado: {{ txanda.langilea }}</p>
+      </ion-label>
+      <ion-buttons slot="end">
+        <ion-button color="danger" (click)="deleteTxanda(txanda.id)">
+          <ion-icon name="trash"></ion-icon>
+        </ion-button>
+      </ion-buttons>
+    </ion-item>
+  </ion-list>
+
+  <ng-template #noData>
+    <p style="text-align: center; padding: 20px;">No hay turnos disponibles.</p>
+  </ng-template>
+</ion-content>

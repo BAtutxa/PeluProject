@@ -1,23 +1,17 @@
-import { Input, Component, OnInit } from "@angular/core";
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'app-tabla-bezero',
   templateUrl: './tabla-bezero.component.html',
   styleUrls: ['./tabla-bezero.component.scss'],
 })
-export class TablaBezeroComponent implements OnInit {
-
-  @Input() alumnos: { nombre: string; apellido: string; edad: number }[] = [];
-  fichaAbierto = false;
-  alumnoSeleccionado: any = null;
+export class TablaBezeroComponent {
+  @Input() alumnos: any[] = [];
+  @Output() seleccionar = new EventEmitter<any>();
 
   constructor() {}
 
-  ngOnInit() {}
-  verFicha(alumno: any) {
-    console.log('Alumno seleccionado:', alumno);
-    this.alumnoSeleccionado = alumno;
-    this.fichaAbierto = true;
+  seleccionarAlumno(alumno: any) {
+    this.seleccionar.emit(alumno);
   }
-
 }
