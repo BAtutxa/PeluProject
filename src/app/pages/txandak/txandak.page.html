@@ -1,25 +1,86 @@
-<ion-app>
-  <app-barra-navegacion></app-barra-navegacion>
+<app-barra-navegacion></app-barra-navegacion>
 
-  <ion-content>
-    <app-nav-bar></app-nav-bar>
-  <app-nav-bar></app-nav-bar> <!-- Verifica que este componente existe -->
-  <ion-list *ngIf="txandakList.length > 0; else noData">
-    <ion-item *ngFor="let txanda of txandakList">
-      <ion-label>
-        <h2>Turno: {{ txanda.mota }}</h2>
-        <p>Fecha: {{ txanda.data }}</p>
-        <p>Empleado: {{ txanda.langilea }}</p>
-      </ion-label>
-      <ion-buttons slot="end">
-        <ion-button color="danger" (click)="deleteTxanda(txanda.id)">
-          <ion-icon name="trash"></ion-icon>
-        </ion-button>
-      </ion-buttons>
-    </ion-item>
-  </ion-list>
+<ion-content class="full-height">
+  <app-nav-bar></app-nav-bar>
 
+  <!-- Selector de fecha con ion-select -->
+  <ion-item>
+    <ion-label>Seleccionar Fecha</ion-label>
+    <ion-select [(ngModel)]="fechaSeleccionada" (ionChange)="actualizarFecha($event)">
+      <ion-select-option *ngFor="let fecha of fechasDisponibles" [value]="fecha">
+        {{ fecha }}
+      </ion-select-option>
+    </ion-select>
+  </ion-item>
+
+  <!-- Turnos de Limpieza -->
+  <ion-card *ngIf="limpiezaList.length > 0">
+    <ion-card-header>
+      <ion-card-title>
+        <ion-chip color="success">
+          <ion-icon name="broom-outline"></ion-icon>
+          <ion-label>Turnos de Limpieza</ion-label>
+        </ion-chip>
+      </ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-list>
+        <ion-item *ngFor="let txanda of limpiezaList">
+          <ion-label>
+            <h2>{{ txanda?.langilea?.izena }}</h2>
+          </ion-label>
+          <ion-buttons slot="end">
+            <ion-button color="danger" (click)="deleteTxanda(txanda.id)">
+              <ion-icon name="trash"></ion-icon>
+            </ion-button>
+          </ion-buttons>
+        </ion-item>
+      </ion-list>
+    </ion-card-content>
+  </ion-card>
+
+  <!-- Turnos de Recepción -->
+  <ion-card *ngIf="recepcionList.length > 0">
+    <ion-card-header>
+      <ion-card-title>
+        <ion-chip color="primary">
+          <ion-icon name="desktop-outline"></ion-icon>
+          <ion-label>Turnos de Recepción</ion-label>
+        </ion-chip>
+      </ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-list>
+        <ion-item *ngFor="let txanda of recepcionList">
+          <ion-label>
+            <h2>{{ txanda?.langilea?.izena }}</h2>
+
+          </ion-label>
+          <ion-buttons slot="end">
+            <ion-button color="danger" (click)="deleteTxanda(txanda.id)">
+              <ion-icon name="trash"></ion-icon>
+            </ion-button>
+          </ion-buttons>
+        </ion-item>
+      </ion-list>
+    </ion-card-content>
+  </ion-card>
+
+  <!-- Mensaje cuando no hay turnos -->
   <ng-template #noData>
-    <p style="text-align: center; padding: 20px;">No hay turnos disponibles.</p>
+    <ion-card color="warning">
+      <ion-card-content class="ion-text-center">
+        <ion-icon name="alert-circle-outline" size="large"></ion-icon>
+        <p>No hay turnos para la fecha seleccionada.</p>
+      </ion-card-content>
+    </ion-card>
   </ng-template>
+
+  <!-- ✅ Botón flotante para añadir turno -->
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button color="primary" (click)="abrirFormularioNuevoTurno()">
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+
 </ion-content>

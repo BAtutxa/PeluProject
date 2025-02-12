@@ -14,6 +14,7 @@ import { ProductComponent } from './modals/product/product.component';
 import { ServiceModalComponent } from './modals/service-modal/service-modal.component';
 import { GrupoModalComponent } from './modals/grupo-modal/grupo-modal.component';
 import { TrabajadorModalComponent } from './modals/trabajadores-modal/trabajadores-modal.component';
+import { TxandakModalComponent } from './modals/txandak-modal/txandak-modal.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +28,8 @@ import { TrabajadorModalComponent } from './modals/trabajadores-modal/trabajador
     ProductComponent,
     ServiceModalComponent,
     GrupoModalComponent,
-    TrabajadorModalComponent
+    TrabajadorModalComponent,
+    TxandakModalComponent
     
   ],
   imports: [
@@ -48,7 +50,8 @@ import { TrabajadorModalComponent } from './modals/trabajadores-modal/trabajador
     ProductComponent,
     ServiceModalComponent,
     GrupoModalComponent,
-    TrabajadorModalComponent
+    TrabajadorModalComponent,
+    TxandakModalComponent
 
     
   ]

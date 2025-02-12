@@ -1,34 +1,73 @@
 import { Component, OnInit } from '@angular/core';
-import { AlertController } from '@ionic/angular';
+import { AlertController, ModalController } from '@ionic/angular';
 import { TxandakService } from 'src/app/service/txandak.service';
+import { TxandakModalComponent } from 'src/app/shared/modals/txandak-modal/txandak-modal.component';
+
 @Component({
   selector: 'app-txandak',
   templateUrl: './txandak.page.html',
   styleUrls: ['./txandak.page.scss'],
 })
 export class TxandakPage implements OnInit {
-  txandakList: any[] = []; // <-- Inicializamos como array vacío
+  txandakList: any[] = [];
+  limpiezaList: any[] = [];
+  recepcionList: any[] = [];
+  fechaSeleccionada: string = ''; 
+  fechasDisponibles: string[] = []; 
 
   constructor(
     private txandakService: TxandakService,
-    private alertController: AlertController
+    private alertController: AlertController,
+    private modalController: ModalController // <-- Necesario para abrir el modal
   ) {}
 
   ngOnInit() {
-    this.loadTxandak();
+    this.generarFechasDisponibles();
   }
 
-  loadTxandak() {
-    this.txandakService.getAll().subscribe(
+  generarFechasDisponibles() {
+    const hoy = new Date();
+    for (let i = 0; i < 7; i++) {
+      const fecha = new Date();
+      fecha.setDate(hoy.getDate() - i);
+      this.fechasDisponibles.push(fecha.toISOString().split('T')[0]);
+    }
+    this.fechaSeleccionada = this.fechasDisponibles[0]; 
+    this.loadTurnosPorFecha();
+  }
+
+  actualizarFecha(event: any) {
+    this.fechaSeleccionada = event.detail.value;
+    console.log('📅 Fecha seleccionada:', this.fechaSeleccionada);
+    this.loadTurnosPorFecha();
+  }
+
+  loadTurnosPorFecha() {
+    console.log('🔄 Cargando turnos para:', this.fechaSeleccionada);
+    this.txandakService.getTurnosPorFecha(this.fechaSeleccionada).subscribe(
       (data) => {
-        console.log('Datos cargados:', data);
-        this.txandakList = data || []; // Evita errores si `data` es null
+        console.log('✅ Turnos obtenidos:', data);
+        this.txandakList = data || [];
+        this.limpiezaList = this.txandakList.filter(t => t.mota === 'G');
+        this.recepcionList = this.txandakList.filter(t => t.mota === 'M');
       },
       (error) => {
-        console.error('Error al cargar los turnos:', error);
+        console.error('❌ Error al cargar los turnos:', error);
         this.txandakList = [];
+        this.limpiezaList = [];
+        this.recepcionList = [];
       }
     );
+  }
+
+  async abrirFormularioNuevoTurno() {
+    const modal = await this.modalController.create({
+      component: TxandakModalComponent,
+    });
+    await modal.present();
+
+    // Refrescar la lista después de cerrar el modal
+    modal.onDidDismiss().then(() => this.loadTurnosPorFecha());
   }
 
   async deleteTxanda(id: number) {
@@ -40,7 +79,7 @@ export class TxandakPage implements OnInit {
         {
           text: 'Eliminar',
           handler: () => {
-            this.txandakService.delete(id).subscribe(() => this.loadTxandak());
+            this.txandakService.delete(id).subscribe(() => this.loadTurnosPorFecha());
           },
         },
       ],
