@@ -44,7 +44,7 @@ export class AutentificadorService {
     }
   }
 
-  cargarUsuarios() {
+  cargarUsuarios() {//k
     this.obtenerUsuarios().subscribe(usuarios => {
       this.erabiltzaileak = usuarios;
     });
