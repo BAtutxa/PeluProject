@@ -1,43 +1,38 @@
-import { Component } from '@angular/core';
-import { Router } from '@angular/router'; 
+import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { AutentificadorService } from 'src/app/service/autentificador.service';
 
 @Component({
   selector: 'app-login',
-  templateUrl: './login.page.html',
-  styleUrls: ['./login.page.scss'],
+  templateUrl: 'login.page.html',
+  styleUrls: ['login.page.scss'],
 })
-export class LoginPage {
+export class LoginPage implements OnInit {
   username: string = '';
   password: string = '';
+  loginError: boolean = false;  // Para mostrar un mensaje de error si no coincide el login
 
-  constructor(private authService: AutentificadorService, private router: Router) {} 
+  constructor(
+    private autSer: AutentificadorService,
+    private router: Router
+  ) {}
 
-  onLogin() {
-    if (!this.username || !this.password) {
-      alert('Por favor, ingresa usuario y contraseña');
-      return;
-    }
+  ngOnInit() {
+    this.autSer.cargarUsuarios();  // Cargar usuarios al iniciar el componente
+  }
 
-    this.authService.login(this.username, this.password).subscribe({
-      next: (response) => {
-        console.log('Login exitoso', response);
-
-        localStorage.setItem('user', JSON.stringify(response));
-
-        const role = response.role === 'IK' ? 'ADMIN' : 'ALUMNO';
-
-        if (role === 'ADMIN') {
-          this.router.navigate(['/admin']);
-        } else if (role === 'ALUMNO') {
-          this.router.navigate(['/alumno']);
-        } else {
-          alert('Rol desconocido, contacta con soporte.');
+  onLogin(): void {
+    const success = this.autSer.login(this.username, this.password);
+  
+    if (!success) {
+      this.loginError = true;
+    } else {
+      // Suscribirse para obtener el valor de admin
+      this.autSer.admin$.subscribe(isAdmin => {
+        if (isAdmin) {
+          console.log("El usuario tiene permisos de administrador.");
         }
-      },
-      error: () => {
-        alert('Usuario o contraseña incorrectos');
-      },
-    });
+      });
+    }
   }
 }

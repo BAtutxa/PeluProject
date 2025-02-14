@@ -1,18 +1,21 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-
+import { AutentificadorService } from 'src/app/service/autentificador.service';
 
 @Component({
   selector: 'app-nav-bar',
   templateUrl: './nav-bar.component.html',
   styleUrls: ['./nav-bar.component.scss'],
 })
-export class NavBarComponent  implements OnInit {
+export class NavBarComponent implements OnInit {
+  public admin: boolean = false;
 
-
-  constructor(private router: Router) {}
+  constructor(private autSer: AutentificadorService) {}
 
   ngOnInit() {
-  } 
-
+    // Suscribirse a los cambios en admin
+    this.autSer.admin$.subscribe(isAdmin => {
+      console.log('Valor de admin cambiado:', isAdmin);
+      this.admin = isAdmin;
+    });
+  }
 }

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { ProductComponent } from 'src/app/shared/modals/product/product.component';
 import { HttpClient } from '@angular/common/http';
+import { AutentificadorService } from 'src/app/service/autentificador.service';
 
 @Component({
   selector: 'app-productos',
@@ -16,13 +17,19 @@ export class ProductosPage implements OnInit {
   searchTerm: string = ''; 
   filteredProductos: any[] = [];
   filteredMateriales: any[] = [];
-
-  constructor(private modalCtrl: ModalController, private http: HttpClient) {}
+  public admin: boolean = false;
+  
+  constructor(private modalCtrl: ModalController, private http: HttpClient, private autSer: AutentificadorService) {}
 
   ngOnInit() {
     this.loadProductos();
     this.loadMateriales();
     this.loadCategorias();
+    this.autSer.admin$.subscribe(isAdmin => {
+      console.log('Valor de admin cambiado:', isAdmin);
+      this.admin = isAdmin;
+    });
+    
   }
 
   loadProductos() {

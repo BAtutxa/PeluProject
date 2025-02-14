@@ -18,6 +18,12 @@
         Iniciar Sesión
       </ion-button>
     </form>
+    
+    <!-- Mensaje de error si el login falla -->
+    <div *ngIf="loginError" class="ion-text-center" style="color: red;">
+      <small>Usuario o contraseña incorrectos. Por favor, intenta nuevamente.</small>
+    </div>
+
     <div class="ion-text-center">
       <small>¿Olvidaste tu contraseña?</small>
     </div>

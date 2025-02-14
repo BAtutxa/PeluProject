@@ -30,7 +30,9 @@
         <ion-icon slot="start" name="briefcase-outline"></ion-icon>
         <ion-label>Txandak </ion-label>
       </ion-item>
-      <ion-item button [routerLink]="'/trabajadores'" routerLinkActive="active-item">
+      
+      <!-- Mostrar solo si admin es true -->
+      <ion-item *ngIf="admin" button [routerLink]="'/trabajadores'" routerLinkActive="active-item">
         <ion-icon slot="start" name="people-outline"></ion-icon>
         <ion-label>Trabajadores</ion-label>
       </ion-item>

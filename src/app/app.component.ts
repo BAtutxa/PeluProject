@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { AutentificadorService } from './service/autentificador.service';
 
 
 
