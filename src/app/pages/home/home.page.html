@@ -7,21 +7,22 @@
 
     <ion-grid class="full-grid">
       <ion-row>
-        <ion-col size-md="11" size="12">
+        <!-- Columna de la agenda -->
+        <ion-col size-md="8" size="12">
           <ion-card class="full-card">
             <ion-card-header class="center">
               <ion-card-title>Agenda del día</ion-card-title>
             </ion-card-header>
 
             <div class="agenda-container">
-              <!-- Columna de Horas -->
+              <!-- Columna de horas -->
               <div class="hour-column">
                 <div *ngFor="let hour of hours" class="hour-item">
                   {{ hour }}
                 </div>
               </div>
 
-              <!-- Contenedor de Citas -->
+              <!-- Columna de citas -->
               <div class="agenda-column">
                 <div class="citas-container">
                   <div *ngFor="let cita of citas"
@@ -32,18 +33,21 @@
                       'left': calcularColumna(cita)
                     }"
                     (click)="abrirInfoCita(cita)">
-
-                      <ion-card-content class="cita-text">
-                        <strong style="font-size: 22px; font-weight: 300; color: white">{{ cita.izena }}</strong><br>
-                        <span style=" color: aqua; font-weight: 300; ">{{ cita.deskribapena }}</span>
-                      </ion-card-content>
-
+                    <ion-card-content class="cita-text">
+                      <strong style="font-size: 22px; font-weight: 300; color: white">{{ cita.izena }}</strong><br>
+                      <span style="color: aqua; font-weight: 300;">{{ cita.deskribapena }}</span><br>
+                      <span style="color: yellow;">Asiento: {{ cita.eserlekua }}</span>
+                    </ion-card-content>
                   </div>
                 </div>
               </div>
             </div>
-
           </ion-card>
+        </ion-col>
+
+        <!-- Columna de citas en proceso -->
+        <ion-col size-md="4" size="12">
+          <app-citas-en-proceso [citasEnProceso]="citasEnProceso" (citaFinalizada)="actualizarCitas2($event)"></app-citas-en-proceso>
         </ion-col>
       </ion-row>
     </ion-grid>

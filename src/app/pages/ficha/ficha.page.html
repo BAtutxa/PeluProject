@@ -1,11 +1,34 @@
 <ion-app>
   <app-barra-navegacion></app-barra-navegacion>
-
-  <ion-content>
+  <ion-content class="full-height">
     <app-nav-bar></app-nav-bar>
-    <ion-searchbar class="custom-searchbar" animated="true" placeholder="B"></ion-searchbar>
+    
+    <ion-grid class="full-grid">
+      <ion-row>
+        <ion-col size-md="11" size="12">
+          <pre>{{ bezeroa | json }}</pre>
 
-    <app-tabla-bezero [bezeroak]="listaBezeroa"></app-tabla-bezero>
+          <ion-card class="full-card">
+            <ion-card-header class="center">
+              <ion-card-title>Ficha del Cliente</ion-card-title>
+            </ion-card-header>
 
+            <ion-card-content *ngIf="bezeroa">
+              <p><strong>¿Piel Sensible?:</strong> {{ bezeroa.azalSentikorra === '1' ? 'Sí' : 'No' }}</p>
+              <p><strong>Fecha de Creación:</strong> {{ bezeroa.sortzeData | date: 'medium' }}</p>
+              <p><strong>Última Actualización:</strong> {{ bezeroa.eguneratzeData | date: 'medium' }}</p>
+              <p *ngIf="bezeroa.ezabatzeData"><strong>Fecha de Eliminación:</strong> {{ bezeroa.ezabatzeData | date: 'medium' }}</p>
+              
+              
+
+            </ion-card-content>
+
+            <ion-text color="danger" *ngIf="!bezeroa">
+              <p class="ion-text-center">No se pudo cargar la ficha del cliente.</p>
+            </ion-text>
+          </ion-card>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
   </ion-content>
-  </ion-app>
+</ion-app>

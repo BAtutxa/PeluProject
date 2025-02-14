@@ -10,7 +10,11 @@
   <ion-card-content>
     <ion-item>
       <ion-label>Alumno:</ion-label>
-      <ion-select placeholder="Seleccionar" interface="popover" [(ngModel)]="cita.alumno" (ionChange)="onAlumnoSeleccionado()">
+      <ion-select placeholder="Seleccionar"
+                  interface="popover"
+                  [(ngModel)]="cita.alumno"
+                  (ionChange)="onAlumnoSeleccionado()"
+                  [disabled]="trabajadorSeleccionado"> 
         <ion-select-option *ngFor="let alumno of alumnos" [value]="alumno.izena">
           {{ alumno.izena }}
         </ion-select-option>

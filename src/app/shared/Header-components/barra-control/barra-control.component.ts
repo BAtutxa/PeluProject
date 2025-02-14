@@ -10,7 +10,7 @@ import { InfoCitaComponent } from '../../Agenda/info-cita/info-cita.component';
   styleUrls: ['./barra-control.component.scss'],
 })
 export class BarraControlComponent implements OnInit {
-  @Output() citasActualizadas = new EventEmitter<any[]>(); // Enviar citas a la agenda
+  @Output() citasActualizadas = new EventEmitter<any[]>(); 
 
   grupos: any[] = [];
   trabajadores: any[] = [];
@@ -19,7 +19,7 @@ export class BarraControlComponent implements OnInit {
 
   grupoSeleccionado: any = null;
   trabajadorSeleccionado: string = '';
-  fechaActual: string = new Date().toISOString().split('T')[0]; // Fecha actual en formato YYYY-MM-DD
+  fechaActual: string = new Date().toISOString().split('T')[0]; 
 
   constructor(private modalCtrl: ModalController, private http: HttpClient) {}
 

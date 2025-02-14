@@ -11,53 +11,83 @@ export class InfoCitaComponent implements OnInit {
   @Input() cita: any;
   alumnos: any[] = []; // Lista de alumnos filtrados
   timer: any;
-  tiempoTranscurrido = 0;
-  tiempoFormato = '00:00';
+  tiempoInicio: number = 0; // Timestamp de inicio
+  tiempoFormato: string = '00:00';
+  estadoGuardado: string = '';
+  trabajadorSeleccionado: boolean=false;
 
   constructor(private modalController: ModalController, private http: HttpClient) {}
 
   ngOnInit() {
     this.cargarAlumnos();
+    this.cargarTemporizador();
   }
 
   cerrarModal() {
     this.modalController.dismiss();
   }
 
-  startTimer() {
-    if (this.timer) {
-      return; // Evita múltiples temporizadores
+  cargarTemporizador() {
+    const guardado = localStorage.getItem(`cita_${this.cita.id}_tiempo`);
+    const estadoGuardado = localStorage.getItem(`cita_${this.cita.id}_estado`);
+
+    if (guardado && estadoGuardado === 'En proceso') {
+      this.tiempoInicio = parseInt(guardado, 10);
+      this.cita.estado = estadoGuardado;
+      this.actualizarTiempo();
+      this.iniciarContador();
     }
+  }
+
+  startTimer() {
+    if (this.cita.estado !== 'Pendiente') return;
 
     this.cita.estado = 'En proceso';
+    this.tiempoInicio = Date.now();
+    
+    localStorage.setItem(`cita_${this.cita.id}_tiempo`, this.tiempoInicio.toString());
+    localStorage.setItem(`cita_${this.cita.id}_estado`, this.cita.estado);
+
+    this.iniciarContador();
+  }
+
+  iniciarContador() {
+    if (this.timer) clearInterval(this.timer); 
+
     this.timer = setInterval(() => {
-      this.tiempoTranscurrido++;
-      this.tiempoFormato = this.formatTime(this.tiempoTranscurrido);
+      this.actualizarTiempo();
     }, 1000);
   }
 
-  finalizarServicio() {
-    if (this.timer) {
-      clearInterval(this.timer);
-      this.timer = null;
-      this.cita.estado = 'Finalizado';
-      this.cita.duracionTotal = this.tiempoFormato;
-    }
-  }
+  actualizarTiempo() {
+    const tiempoActual = Date.now();
+    const tiempoTranscurrido = Math.floor((tiempoActual - this.tiempoInicio) / 1000);
 
-  formatTime(seconds: number): string {
-    const minutes = Math.floor(seconds / 60);
-    const remainingSeconds = seconds % 60;
-    return `${this.pad(minutes)}:${this.pad(remainingSeconds)}`;
+    const minutos = Math.floor(tiempoTranscurrido / 60);
+    const segundos = tiempoTranscurrido % 60;
+
+    this.tiempoFormato = `${this.pad(minutos)}:${this.pad(segundos)}`;
   }
 
   pad(value: number): string {
     return value < 10 ? `0${value}` : value.toString();
   }
 
-  // 🔥 Cargar alumnos filtrados según el grupo del día
+  finalizarServicio() {
+    if (this.timer) {
+      clearInterval(this.timer);
+      this.timer = null;
+    }
+
+    this.cita.estado = 'Finalizado';
+    this.cita.duracionTotal = this.tiempoFormato;
+
+    localStorage.removeItem(`cita_${this.cita.id}_tiempo`);
+    localStorage.removeItem(`cita_${this.cita.id}_estado`);
+  }
+
   cargarAlumnos() {
-    if (!this.cita?.data) return; // Si no hay fecha, salir
+    if (!this.cita?.data) return;
 
     this.http.get<any[]>('http://localhost:8080/taldeak').subscribe((grupos) => {
       const grupoDelDia = this.obtenerGrupoPorFecha(this.cita.data, grupos);
@@ -70,10 +100,11 @@ export class InfoCitaComponent implements OnInit {
       });
     });
   }
+
   onAlumnoSeleccionado() {
-    console.log("👨‍🎓 Alumno seleccionado:", this.cita.alumno);
     if (this.cita.alumno) {
-      this.cita.estado = 'Pendiente'; 
+      this.cita.estado = 'Pendiente';
+      this.trabajadorSeleccionado = true; 
     }
   }
 
@@ -86,5 +117,5 @@ export class InfoCitaComponent implements OnInit {
     }
 
     return grupos[diaSemana - 1]; 
-}
+  }
 }

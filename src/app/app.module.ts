@@ -8,6 +8,9 @@ import { AppRoutingModule } from './app-routing.module';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { PopcitaComponent } from './shared/modals/popcita/popcita.component';
+import { ReactiveFormsModule } from '@angular/forms';
+import { FichaPage } from './pages/ficha/ficha.page';
+
 
 
 
@@ -21,6 +24,7 @@ import { PopcitaComponent } from './shared/modals/popcita/popcita.component';
     AppRoutingModule,
     FullCalendarModule,
     FormsModule,
+    ReactiveFormsModule,
     HttpClientModule
 
   ],

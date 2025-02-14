@@ -1,14 +1,9 @@
-.custom-searchbar {
-    margin-left: var(--menu-width, 350px);
-    max-width: calc(100% - var(--menu-width, 450px));
+  
+  
+.ion-padding{
+      /* Ajusta el ancho del grid si hay un menú lateral solo a la izquierda */
+  @media (min-width: 768px) { /* Pantallas medianas en adelante */
+    margin-left: var(--menu-width, 250px); /* Espacio para el menú lateral */
+    max-width: calc(100% - var(--menu-width, 250px)); /* Resta solo el ancho del menú lateral */
   }
-
-  
-  
-  @media (min-width: 1200px) {
-    .custom-searchbar {
-      margin-left: var(--menu-width, 250px); /* Ajuste para el menú */
-      max-width: calc(100% - var(--menu-width, 450px)); /* Resta el ancho del menú */
-    }
-  }
-  
+}

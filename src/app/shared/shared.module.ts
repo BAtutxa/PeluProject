@@ -15,7 +15,7 @@ import { ServiceModalComponent } from './modals/service-modal/service-modal.comp
 import { GrupoModalComponent } from './modals/grupo-modal/grupo-modal.component';
 import { TrabajadorModalComponent } from './modals/trabajadores-modal/trabajadores-modal.component';
 import { TxandakModalComponent } from './modals/txandak-modal/txandak-modal.component';
-
+import { CitasEnProcesoComponent } from './Agenda/citas-en-proceso/citas-en-proceso.component';
 @NgModule({
   declarations: [
     BarraNavegacionComponent,
@@ -29,11 +29,13 @@ import { TxandakModalComponent } from './modals/txandak-modal/txandak-modal.comp
     ServiceModalComponent,
     GrupoModalComponent,
     TrabajadorModalComponent,
-    TxandakModalComponent
+    TxandakModalComponent,
+    CitasEnProcesoComponent
     
   ],
   imports: [
     CommonModule,
+
     IonicModule,
     RouterModule,
     FormsModule
@@ -51,7 +53,8 @@ import { TxandakModalComponent } from './modals/txandak-modal/txandak-modal.comp
     ServiceModalComponent,
     GrupoModalComponent,
     TrabajadorModalComponent,
-    TxandakModalComponent
+    TxandakModalComponent,
+    CitasEnProcesoComponent
 
     
   ]
