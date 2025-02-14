@@ -6,12 +6,12 @@ import { Component, Input, Output, EventEmitter } from '@angular/core';
   styleUrls: ['./tabla-bezero.component.scss'],
 })
 export class TablaBezeroComponent {
-  @Input() alumnos: any[] = [];
+  @Input() bezeroak: any[] = [];
   @Output() seleccionar = new EventEmitter<any>();
 
   constructor() {}
 
-  seleccionarAlumno(alumno: any) {
-    this.seleccionar.emit(alumno);
+  seleccionarBezero(bezero: any) {
+    this.seleccionar.emit(bezero);
   }
 }
