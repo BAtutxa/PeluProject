@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { HttpClient } from '@angular/common/http';
 import { ServiceModalComponent } from 'src/app/shared/modals/service-modal/service-modal.component';
+import { AutentificadorService } from 'src/app/service/autentificador.service';
 
 @Component({
   selector: 'app-servicios',
@@ -10,12 +11,17 @@ import { ServiceModalComponent } from 'src/app/shared/modals/service-modal/servi
 })
 export class ServiciosPage implements OnInit {
   servicios: any[] = [];
+  public admin: boolean = false;
   private API_URL = 'http://localhost:8080/zerbitzuak';
 
-  constructor(private modalCtrl: ModalController, private http: HttpClient) {}
+  constructor(private modalCtrl: ModalController, private http: HttpClient, private autSer: AutentificadorService) {}
 
   ngOnInit() {
     this.loadServicios();
+    this.autSer.admin$.subscribe(isAdmin => {
+      console.log('Valor de admin cambiado:', isAdmin);
+      this.admin = isAdmin;
+    });
   }
 
   loadServicios() {

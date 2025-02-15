@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { HttpClient } from '@angular/common/http';
+import { KategoriaModalComponent } from '../kategoria-modal/kategoria-modal.component';
 
 @Component({
   selector: 'app-service-modal',
@@ -36,7 +37,20 @@ export class ServiceModalComponent implements OnInit {
   }
 
   
-
+  async openKategoriaModal() {
+    const modal = await this.modalCtrl.create({
+      component: KategoriaModalComponent // Cambié el componente a KategoriaModalComponent
+    });
+  
+    modal.onDidDismiss().then((result) => {
+      if (result.data) {
+        this.categorias.push(result.data); // Cambié "grupos" a "kategorias"
+      }
+    });
+  
+    return modal.present();
+  }
+ 
   saveItem() {
     console.log("🚀 Intentando guardar servicio...", this.item);
   

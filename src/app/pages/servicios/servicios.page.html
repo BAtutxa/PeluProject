@@ -35,7 +35,7 @@
     
 
     <!-- Botón flotante para agregar servicio --> 
-    <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab *ngIf="admin" vertical="bottom" horizontal="end" slot="fixed">
       <ion-fab-button color="primary" (click)="openModal()">
         <ion-icon name="add-outline"></ion-icon>
       </ion-fab-button>

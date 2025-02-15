@@ -29,7 +29,9 @@
         </ion-select-option>
       </ion-select>
     </ion-item>
+    <ion-button expand="full" color="secondary" (click)="openKategoriaModal()">Añadir Categoria</ion-button>
   </ng-container>
+  
 
   <!-- ✅ Si es un Producto, mostramos estos campos -->
   <ng-container *ngIf="tipo === 'producto'">
@@ -51,6 +53,8 @@
         </ion-select-option>
       </ion-select>
     </ion-item>
+    
+    <ion-button expand="full" color="secondary" (click)="openKategoriaModal()">Añadir Categoria</ion-button>
 
     <ion-item>
       <ion-label position="floating">Marca</ion-label>

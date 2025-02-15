@@ -16,9 +16,9 @@ export class AutentificadorService {
   private apiUrl = 'http://localhost:8080/api/erabiltzaileak';
   private erabiltzaileak: Erabiltzaile[] = [];
   
-  // Cambiamos admin a un BehaviorSubject
-  private adminSubject = new BehaviorSubject<boolean>(false);
-  public admin$ = this.adminSubject.asObservable();  // Observable que los componentes pueden suscribirse
+  // Inicializamos el BehaviorSubject con el valor de localStorage si existe
+  private adminSubject = new BehaviorSubject<boolean>(JSON.parse(localStorage.getItem('admin') || 'false'));
+  public admin$ = this.adminSubject.asObservable();
 
   constructor(private http: HttpClient, private router: Router) {}
 
@@ -33,9 +33,11 @@ export class AutentificadorService {
       if (usuario.rola === 'IR') {
         console.log('Usuario es admin');
         this.adminSubject.next(true);  // 🔹 Actualiza el BehaviorSubject a true
+        localStorage.setItem('admin', 'true');  // Guardamos el estado en localStorage
       } else {
         console.log('Usuario NO es admin');
         this.adminSubject.next(false);
+        localStorage.setItem('admin', 'false');  // Guardamos el estado en localStorage
       }
       this.router.navigate(['/home']);
       return true;
@@ -44,9 +46,15 @@ export class AutentificadorService {
     }
   }
 
-  cargarUsuarios() {//k
+  cargarUsuarios() {
     this.obtenerUsuarios().subscribe(usuarios => {
       this.erabiltzaileak = usuarios;
     });
+  }
+
+  logout() {
+    // Puedes agregar una lógica para cerrar sesión y limpiar el estado
+    this.adminSubject.next(false);
+    localStorage.removeItem('admin');  // Eliminamos el estado del rol admin al hacer logout
   }
 }

@@ -16,6 +16,7 @@ import { GrupoModalComponent } from './modals/grupo-modal/grupo-modal.component'
 import { TrabajadorModalComponent } from './modals/trabajadores-modal/trabajadores-modal.component';
 import { TxandakModalComponent } from './modals/txandak-modal/txandak-modal.component';
 import { CitasEnProcesoComponent } from './Agenda/citas-en-proceso/citas-en-proceso.component';
+import { KategoriaModalComponent } from './modals/kategoria-modal/kategoria-modal.component';
 @NgModule({
   declarations: [
     BarraNavegacionComponent,
@@ -30,7 +31,8 @@ import { CitasEnProcesoComponent } from './Agenda/citas-en-proceso/citas-en-proc
     GrupoModalComponent,
     TrabajadorModalComponent,
     TxandakModalComponent,
-    CitasEnProcesoComponent
+    CitasEnProcesoComponent,
+    KategoriaModalComponent
     
   ],
   imports: [
