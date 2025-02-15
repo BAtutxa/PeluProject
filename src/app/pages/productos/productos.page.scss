@@ -6,6 +6,15 @@
   }
 }
 
+ion-fab {
+  position: fixed !important;
+  bottom: 16px;
+  z-index: 100;
+}
+
+ion-fab-button {
+  position: relative;
+}
 
 .segment-custom {
   margin: 10px;
@@ -36,3 +45,7 @@ ion-button {
   justify-content: center;
 }
 
+canvas {
+  width: 100% !important;
+  height: auto !important;
+}

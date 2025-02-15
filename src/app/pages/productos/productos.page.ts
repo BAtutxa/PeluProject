@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { ProductComponent } from 'src/app/shared/modals/product/product.component';
+import { ProductGraphComponent } from 'src/app/product-graph/product-graph.component';
 import { HttpClient } from '@angular/common/http';
 import { AutentificadorService } from 'src/app/service/autentificador.service';
+import { Chart, registerables } from 'chart.js'; 
 
 @Component({
   selector: 'app-productos',
@@ -18,7 +20,7 @@ export class ProductosPage implements OnInit {
   filteredProductos: any[] = [];
   filteredMateriales: any[] = [];
   public admin: boolean = false;
-  
+
   constructor(private modalCtrl: ModalController, private http: HttpClient, private autSer: AutentificadorService) {}
 
   ngOnInit() {
@@ -29,14 +31,12 @@ export class ProductosPage implements OnInit {
       console.log('Valor de admin cambiado:', isAdmin);
       this.admin = isAdmin;
     });
-    
   }
 
   loadProductos() {
     this.http.get<any[]>('http://localhost:8080/produktuak').subscribe({
       next: (data) => {
         console.log("✅ Datos recibidos del backend:", data);
-
         this.productos = data.map(p => ({
           id: p.id,
           nombre: p.izena,
@@ -46,7 +46,6 @@ export class ProductosPage implements OnInit {
           stock: p.stock,
           stockAlerta: p.stockAlerta
         }));
-
         this.filteredProductos = [...this.productos]; // Inicializar filtrado
         console.log("✅ Productos asignados:", this.productos);
       },
@@ -60,7 +59,6 @@ export class ProductosPage implements OnInit {
     this.http.get<any[]>('http://localhost:8080/materialak').subscribe({
       next: (data) => {
         console.log("✅ Datos de materiales recibidos:", data);
-        
         this.materiales = data.map(m => ({
           id: m.id,
           etiketa: m.etiketa,
@@ -70,7 +68,6 @@ export class ProductosPage implements OnInit {
           eguneratzeData: m.eguneratzeData,
           ezabatzeData: m.ezabatzeData
         }));
-  
         this.filteredMateriales = [...this.materiales]; // Aplicar filtro inicial
       },
       error: (err) => {
@@ -78,16 +75,26 @@ export class ProductosPage implements OnInit {
       }
     });
   }
-  
 
   loadCategorias() {
     this.http.get<any[]>('http://localhost:8080/kategoriak').subscribe(data => {
       this.categorias = data;
     });
   }
+
+  async openGraphModal() {
+    console.log('Productos en el modal:', this.filteredProductos);  // Verifica que los datos sean correctos
+    const modal = await this.modalCtrl.create({
+      component: ProductGraphComponent,
+      componentProps: { productos: this.filteredProductos }
+    });
+    return modal.present();
+  }
+  
+  
+
   async openModal(tipo: string, item?: any) {
     console.log(`🔄 Abriendo modal para: ${tipo}`);
-  
     const modal = await this.modalCtrl.create({
       component: ProductComponent,
       componentProps: { 
@@ -96,7 +103,7 @@ export class ProductosPage implements OnInit {
         tipo: tipo
       }
     });
-  
+
     modal.onDidDismiss().then((result) => {
       if (result.data) {
         if (tipo === 'producto') {
@@ -120,11 +127,10 @@ export class ProductosPage implements OnInit {
         }
       }
     });
-  
+
     return modal.present();
   }
-  
-  
+
   deleteItem(tipo: string, id: number) {
     const url = tipo === 'producto' ? 'http://localhost:8080/produktuak' : 'http://localhost:8080/materialak';
     this.http.delete(`${url}/${id}`).subscribe(() => {
@@ -140,7 +146,6 @@ export class ProductosPage implements OnInit {
 
   filterItems() {
     const searchTermLower = this.searchTerm.toLowerCase();
-    
     if (this.selectedTab === 'productos') {
       this.filteredProductos = this.productos.filter(producto =>
         producto.nombre.toLowerCase().includes(searchTermLower)
