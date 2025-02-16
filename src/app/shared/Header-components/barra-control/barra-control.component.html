@@ -1,16 +1,9 @@
 <div class="barracontrol">
   <!-- Grupo Asignado Automáticamente (Deshabilitado) -->
-  <ion-select
-    [(ngModel)]="grupoSeleccionado"
-    interface="popover"
-
-    style="margin-right: 10px; color: white;"
-  >
-    <ion-select-option *ngIf="grupoSeleccionado" [value]="grupoSeleccionado.kodea">
-      {{ grupoSeleccionado.izena }}
-    </ion-select-option>
-    <ion-select-option *ngIf="!grupoSeleccionado">Sin grupo asignado</ion-select-option>
-  </ion-select>
+  <div style="margin-right: 10px; color: white; font-weight: bold; font-size: 16px;">
+    {{ grupoSeleccionado ? grupoSeleccionado.izena : 'Sin grupo asignado' }}
+  </div>
+  
 
   <!-- Selector de Trabajadores por Grupo -->
   <div style="display: flex; align-items: center; margin-right: 10px;">

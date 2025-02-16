@@ -18,7 +18,10 @@ export class BarraNavegacionComponent  implements OnInit {
   
 
   ngOnInit() {
-    this.menuController.open(); // metodo para que este abierto el menu por defecto
+    this.menuController.enable(true,'first' ); 
+  }
+  openMenu() {
+    this.menuController.open('first'); // Abrir el menú con ID 'first'
   }
 
   goToLogin() {
