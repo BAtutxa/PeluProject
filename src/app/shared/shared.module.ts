@@ -15,7 +15,6 @@ import { ServiceModalComponent } from './modals/service-modal/service-modal.comp
 import { GrupoModalComponent } from './modals/grupo-modal/grupo-modal.component';
 import { TrabajadorModalComponent } from './modals/trabajadores-modal/trabajadores-modal.component';
 import { TxandakModalComponent } from './modals/txandak-modal/txandak-modal.component';
-import { CitasEnProcesoComponent } from './Agenda/citas-en-proceso/citas-en-proceso.component';
 import { KategoriaModalComponent } from './modals/kategoria-modal/kategoria-modal.component';
 import { FichaComponent } from './modals/ficha/ficha.component';
 @NgModule({
@@ -32,7 +31,6 @@ import { FichaComponent } from './modals/ficha/ficha.component';
     GrupoModalComponent,
     TrabajadorModalComponent,
     TxandakModalComponent,
-    CitasEnProcesoComponent,
     KategoriaModalComponent,
     FichaComponent
     
@@ -58,7 +56,6 @@ import { FichaComponent } from './modals/ficha/ficha.component';
     GrupoModalComponent,
     TrabajadorModalComponent,
     TxandakModalComponent,
-    CitasEnProcesoComponent,
     FichaComponent
 
     

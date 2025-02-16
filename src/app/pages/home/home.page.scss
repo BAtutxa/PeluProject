@@ -1,4 +1,3 @@
-/* Estructura Base */
 .full-height {
   height: 100vh;
   display: flex;
@@ -12,10 +11,10 @@
   width: 100%;
   height: 100%;
 }
-/* Estilos base para la caja de citas */
+
 .cita-box {
   position: absolute;
-  width: 200px;
+  width: 180px;
   text-align: center;
   border-radius: 8px;
   box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
@@ -24,13 +23,11 @@
   transition: all 0.3s ease-in-out;
 }
 
-
 .agenda-container {
   display: flex;
   flex-direction: row;
 }
 
-/* Columna de Horas */
 .hour-column {
   width: 120px;
   padding: 8px;
@@ -49,8 +46,6 @@
   height: 50px;
 }
 
-
-/* Contenedor de Citas */
 .agenda-column {
   flex-grow: 1;
   position: relative;
@@ -61,43 +56,12 @@
   height: 100%;
 }
 
-.seat-row {
-  display: flex;
-  justify-content: center;
-  margin-top: 20px;
-}
-
-.seat-container {
-  display: flex;
-  justify-content: center;
-  gap: 20px;
-}
-
-.seat-button {
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  text-align: center;
-  font-size: 18px;
-  background-color: #4caf50;
-  color: white;
-}
-
-.cita-box {
-  position: absolute;
-  width: 200px;
-  background: #3c7fc7;
-  border-radius: 8px;
-  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
-  text-align: center;
-  transition: all 0.3s ease-in-out;
-}
-
 .cita-box:hover {
-  background-color: #01bba2;
+  background-color: #e0e0e0;
   transform: translateY(-5px);
   box-shadow: 0px 6px 15px rgba(0, 0, 0, 0.2);
 }
+
 
 
 ion-grid {
