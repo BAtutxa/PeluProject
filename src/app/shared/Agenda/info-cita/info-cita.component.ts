@@ -1,6 +1,8 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { HttpClient } from '@angular/common/http';
+import { Router } from '@angular/router';
+
 
 @Component({
   selector: 'app-info-cita',
@@ -15,8 +17,10 @@ export class InfoCitaComponent implements OnInit {
   tiempoFormato: string = '00:00';
   estadoGuardado: string = '';
   trabajadorSeleccionado: boolean=false;
+  mostrarBotonTicket: boolean = false;
 
-  constructor(private modalController: ModalController, private http: HttpClient) {}
+
+  constructor(private modalController: ModalController, private http: HttpClient, private router:Router) {}
 
   ngOnInit() {
     this.cargarAlumnos();
@@ -84,7 +88,15 @@ export class InfoCitaComponent implements OnInit {
 
     localStorage.removeItem(`cita_${this.cita.id}_tiempo`);
     localStorage.removeItem(`cita_${this.cita.id}_estado`);
+    this.mostrarBotonTicket = true; 
+
   }
+
+  descargarTicket() {
+    this.router.navigate(['/tickets']); // Redirige a la página de tickets dentro de la app
+    setTimeout(async () => {
+      await this.modalController.dismiss();
+    }, 300);  }
 
   cargarAlumnos() {
     if (!this.cita?.data) return;
