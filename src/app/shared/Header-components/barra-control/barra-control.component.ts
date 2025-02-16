@@ -29,7 +29,7 @@ export class BarraControlComponent implements OnInit {
   }
 
   cargarGrupos() {
-    this.http.get<any[]>('http://localhost:8080/api/taldeak').subscribe({
+    this.http.get<any[]>('http://localhost:8080/taldeak').subscribe({
       next: (data) => {
         this.grupos = data;
         this.asignarGrupoPorDia(); // 🔥 Asignar grupo según el día de la semana
@@ -54,7 +54,7 @@ export class BarraControlComponent implements OnInit {
   }
 
   cargarTrabajadores() {
-    this.http.get<any[]>('http://localhost:8080/api/langileak').subscribe({
+    this.http.get<any[]>('http://localhost:8080/langileak').subscribe({
       next: (data) => {
         this.trabajadores = data;
         this.filtrarTrabajadores();
