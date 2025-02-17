@@ -1,8 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { HttpClient } from '@angular/common/http';
-import { Router } from '@angular/router';
-
+import { Router, NavigationExtras } from '@angular/router';
 
 @Component({
   selector: 'app-info-cita',
@@ -16,11 +15,14 @@ export class InfoCitaComponent implements OnInit {
   tiempoInicio: number = 0; // Timestamp de inicio
   tiempoFormato: string = '00:00';
   estadoGuardado: string = '';
-  trabajadorSeleccionado: boolean=false;
+  trabajadorSeleccionado: boolean = false;
   mostrarBotonTicket: boolean = false;
 
-
-  constructor(private modalController: ModalController, private http: HttpClient, private router:Router) {}
+  constructor(
+    private modalController: ModalController,
+    private http: HttpClient,
+    private router: Router
+  ) {}
 
   ngOnInit() {
     this.cargarAlumnos();
@@ -48,7 +50,7 @@ export class InfoCitaComponent implements OnInit {
 
     this.cita.estado = 'En proceso';
     this.tiempoInicio = Date.now();
-    
+
     localStorage.setItem(`cita_${this.cita.id}_tiempo`, this.tiempoInicio.toString());
     localStorage.setItem(`cita_${this.cita.id}_estado`, this.cita.estado);
 
@@ -56,7 +58,7 @@ export class InfoCitaComponent implements OnInit {
   }
 
   iniciarContador() {
-    if (this.timer) clearInterval(this.timer); 
+    if (this.timer) clearInterval(this.timer);
 
     this.timer = setInterval(() => {
       this.actualizarTiempo();
@@ -88,15 +90,25 @@ export class InfoCitaComponent implements OnInit {
 
     localStorage.removeItem(`cita_${this.cita.id}_tiempo`);
     localStorage.removeItem(`cita_${this.cita.id}_estado`);
-    this.mostrarBotonTicket = true; 
-
+    this.mostrarBotonTicket = true;
   }
 
   descargarTicket() {
-    this.router.navigate(['/tickets']); // Redirige a la página de tickets dentro de la app
-    setTimeout(async () => {
-      await this.modalController.dismiss();
-    }, 300);  }
+    const ticketData = {
+      cliente: this.cita?.izena || '',
+      alumno: this.cita?.alumno || '',
+      servicios: this.cita?.deskribapena || 'Sin descripción',
+      precioFinal: this.cita?.precio || 0,
+      duracionTotal: this.cita?.duracionTotal || '00:00',
+    };
+  
+    sessionStorage.setItem('ticketData', JSON.stringify(ticketData));
+  
+    this.router.navigate(['/tickets']).then(() => {
+      this.modalController.dismiss(); // Cierra el modal después de navegar
+    });
+  }
+  
 
   cargarAlumnos() {
     if (!this.cita?.data) return;
@@ -116,18 +128,18 @@ export class InfoCitaComponent implements OnInit {
   onAlumnoSeleccionado() {
     if (this.cita.alumno) {
       this.cita.estado = 'Pendiente';
-      this.trabajadorSeleccionado = true; 
+      this.trabajadorSeleccionado = true;
     }
   }
 
   obtenerGrupoPorFecha(fecha: string, grupos: any[]): any {
     const fechaObj = new Date(fecha);
-    const diaSemana = fechaObj.getDay(); 
+    const diaSemana = fechaObj.getDay();
 
     if (diaSemana === 0 || diaSemana === 6) {
-      return null; 
+      return null;
     }
 
-    return grupos[diaSemana - 1]; 
+    return grupos[diaSemana - 1];
   }
 }

@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { Router, NavigationEnd } from '@angular/router';
 import { jsPDF } from 'jspdf';
 
 @Component({
@@ -6,13 +7,35 @@ import { jsPDF } from 'jspdf';
   templateUrl: './tickets.page.html',
   styleUrls: ['./tickets.page.scss'],
 })
-export class TicketsPage {
+export class TicketsPage implements OnInit {
   cliente: string = '';
   alumno: string = '';
   servicios: string = '';
   precioFinal: number | null = null;
 
-  constructor() {}
+  constructor(private router: Router) {
+    // Detectar cambios de navegación y actualizar datos
+    this.router.events.subscribe((event) => {
+      if (event instanceof NavigationEnd) {
+        this.cargarDatos();
+      }
+    });
+  }
+
+  ngOnInit() {
+    this.cargarDatos(); // Carga inicial de datos
+  }
+
+  cargarDatos() {
+    const ticketData = sessionStorage.getItem('ticketData');
+    if (ticketData) {
+      const data = JSON.parse(ticketData);
+      this.cliente = data.cliente;
+      this.alumno = data.alumno;
+      this.servicios = data.servicios;
+      this.precioFinal = data.precioFinal;
+    }
+  }
 
   generarPDF() {
     if (!this.cliente || !this.alumno || !this.servicios || this.precioFinal === null) {
@@ -21,40 +44,24 @@ export class TicketsPage {
     }
 
     const doc = new jsPDF();
-
-    // Cargar imagen
     const img = new Image();
     img.src = 'assets/fotos/IMP_Logotipoa.png';
     img.onload = () => {
-      doc.addImage(img, 'PNG', 70, 10, 60, 20); // Centrar logo en la parte superior
-
-      // Encabezado
+      doc.addImage(img, 'PNG', 70, 10, 60, 20);
       doc.setFontSize(16);
       doc.setFont('helvetica', 'bold');
       doc.text('TICKET DE SERVICIO', 60, 40);
-
       doc.setFontSize(12);
       doc.setFont('helvetica', 'normal');
-
-      // Línea divisoria
       doc.line(20, 45, 190, 45);
-
-      // Datos del ticket
       doc.text(`Cliente: ${this.cliente}`, 20, 55);
       doc.text(`Alumno: ${this.alumno}`, 20, 65);
       doc.text('Servicios:', 20, 75);
-      
-      // Servicios en varias líneas si es largo
       let serviciosArray = doc.splitTextToSize(this.servicios, 160);
       doc.text(serviciosArray, 20, 85);
-
       doc.text(`Precio Final: ${this.precioFinal}€`, 20, 110);
-
-      // Línea final
       doc.line(20, 120, 190, 120);
       doc.text('Gracias por su compra.', 70, 130);
-
-      // Guardar PDF
       doc.save(`ticket_${this.cliente}.pdf`);
     };
   }
