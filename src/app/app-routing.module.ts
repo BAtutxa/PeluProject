@@ -42,7 +42,12 @@ const routes: Routes = [
   {
     path: 'txandak',
     loadChildren: () => import('./pages/txandak/txandak.module').then( m => m.TxandakPageModule)
+  },  {
+    path: 'mahilegua',
+    loadChildren: () => import('./pages/mahilegua/mahilegua.module').then( m => m.MahileguaPageModule)
   },
+
+  
 
 
 ];
