@@ -108,16 +108,18 @@ export class MahileguaPage implements OnInit {
 
   deleteItem(tipo: string, id: number) {
     const url = tipo === 'producto' ? 'http://localhost:8080/produktuak' : 'http://localhost:8080/materialak';
+  
     this.http.delete(`${url}/${id}`).subscribe(() => {
       if (tipo === 'producto') {
         this.productos = this.productos.filter(p => p.id !== id);
-        this.filterItems();
+        this.filteredProductos = [...this.productos]; // Asegurar que se actualiza la lista filtrada
       } else {
         this.materiales = this.materiales.filter(m => m.id !== id);
-        this.filterItems();
+        this.filteredMateriales = [...this.materiales];
       }
     });
   }
+  
 
   filterItems() {
     const searchTermLower = this.searchTerm.toLowerCase();

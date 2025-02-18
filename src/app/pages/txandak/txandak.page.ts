@@ -70,20 +70,24 @@ export class TxandakPage implements OnInit {
     modal.onDidDismiss().then(() => this.loadTurnosPorFecha());
   }
 
-  async deleteTxanda(id: number) {
-    const alert = await this.alertController.create({
-      header: 'Confirmar',
-      message: '¿Seguro que deseas eliminar este turno?',
-      buttons: [
-        { text: 'Cancelar', role: 'cancel' },
-        {
-          text: 'Eliminar',
-          handler: () => {
-            this.txandakService.delete(id).subscribe(() => this.loadTurnosPorFecha());
-          },
+async deleteTxanda(id: number) {
+  const alert = await this.alertController.create({
+    header: 'Confirmar',
+    message: '¿Seguro que deseas eliminar este turno?',
+    buttons: [
+      { text: 'Cancelar', role: 'cancel' },
+      {
+        text: 'Eliminar',
+        handler: () => {
+          // Filtramos el elemento de la lista en el frontend, sin llamar al backend
+          this.txandakList = this.txandakList.filter(txanda => txanda.id !== id);
+          this.limpiezaList = this.limpiezaList.filter(txanda => txanda.id !== id);
+          this.recepcionList = this.recepcionList.filter(txanda => txanda.id !== id);
         },
-      ],
-    });
-    await alert.present();
-  }
+      },
+    ],
+  });
+  await alert.present();
 }
+}
+
